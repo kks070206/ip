@@ -21,13 +21,14 @@ public class Main {
                     System.out.println("added: " + currentInput.description);
                 }
                 case MARKTASK -> {
-                    if (currentInput.parsedInput[0].equals("mark")) {
-                        jason.markTaskAsComplete(currentInput.number);
-                        System.out.println("Nice! I have marked this task as done:");
-                    } else if (currentInput.parsedInput[0].equals("unmark")) {
-                        jason.markTaskAsIncomplete(currentInput.number);
-                        System.out.println("OK, I've marked this task as not done yet:");
-                    }
+                    jason.markTaskAsComplete(currentInput.number);
+                    System.out.println("Nice! I have marked this task as done:");
+                    System.out.println(jason.getTask(currentInput.number));
+                }
+                case UNMARKTASK -> {
+                    jason.markTaskAsIncomplete(currentInput.number);
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println(jason.getTask(currentInput.number));
                 }
             }
         }

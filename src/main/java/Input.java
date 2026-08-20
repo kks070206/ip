@@ -8,6 +8,7 @@ public class Input {
         this.description = description;
         this.parsedInput = description.split(" ");
         this.type = CommandType.ADDTASK;
+
         if (description.equals("list")) {
             this.type = CommandType.SHOWLIST;
         } else if (description.equals("bye")) {
@@ -16,10 +17,15 @@ public class Input {
             for (String s : parsedInput) {
                 try {
                     Integer.parseInt(s);
-                    this.type = CommandType.MARKTASK;
+                    switch (parsedInput[0]) {
+                        case "mark" -> this.type = CommandType.MARKTASK;
+                        case "unmark" -> this.type = CommandType.UNMARKTASK;
+                        default -> {
+                            return;
+                        }
+                    }
                     this.number = Integer.parseInt(s);
                     break;
-
                 } catch (NumberFormatException e) {
                     continue;
                 }

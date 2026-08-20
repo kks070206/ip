@@ -18,7 +18,7 @@ public class TaskList {
     @Override
     public String toString() {
         String res = "";
-        for (int i = 0; i < taskList.size(); i++) {
+        for (int i = 1; i <= taskList.size(); i++) {
             res += String.format("%d. %s\n", i, this.taskList.get(i - 1));
         }
         return res;
