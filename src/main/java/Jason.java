@@ -3,30 +3,28 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Jason {
-    public static void main(String[] args) {
-        String greetMessage = "Hello! My name is Jason, inspired by JSON files used by software engineers.";
-        String helpMessage = "How may I help you today?";
-        String endMessage = "Goodbye! Hope to see you again.";
+    public static final String START_MESSAGE = "Hello! My name is Jason, inspired by JSON files used by software engineers.";
+    public static final String HELP_MESSAGE = "How may I help you today?";
+    public static final String END_MESSAGE = "Goodbye! Hope to see you again.";
+    public TaskList taskList;
 
-        System.out.println(greetMessage);
-        System.out.println(helpMessage);
+    public Jason() {
+        this.taskList = new TaskList();
+    }
 
-        List<String> list = new ArrayList<>();
+    public void addTask(Task t) {
+        this.taskList.add(t);
+    }
 
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
-        while (!input.equals("bye")) {
-            if (input.equals("list")) {
-                for (int i = 1; i <= list.size(); i++) {
-                    System.out.println(i + ". " + list.get(i - 1));
-                }
-                input = sc.nextLine();
-                continue;
-            }
-            list.add(input);
-            System.out.println("added: " + input);
-            input = sc.nextLine();
-        }
-        System.out.println(endMessage);
+    public Task getTask(int i) {
+        return this.taskList.get(i);
+    }
+
+    public void markTaskAsComplete(int i) {
+        this.getTask(i).markCompleted();
+    }
+
+    public void markTaskAsIncomplete(int i) {
+        this.getTask(i).markIncomplete();
     }
 }
