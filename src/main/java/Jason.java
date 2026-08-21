@@ -1,7 +1,3 @@
-import java.util.Scanner;
-import java.util.List;
-import java.util.ArrayList;
-
 public class Jason {
     public static final String START_MESSAGE = "Hello! My name is Jason, inspired by JSON files used by software engineers.";
     public static final String HELP_MESSAGE = "How may I help you today?";
@@ -21,7 +17,7 @@ public class Jason {
     }
 
     public void markTaskAsComplete(int i) {
-        this.getTask(i).markCompleted();
+        this.getTask(i).markComplete();
     }
 
     public void markTaskAsIncomplete(int i) {

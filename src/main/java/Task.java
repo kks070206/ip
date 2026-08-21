@@ -1,13 +1,13 @@
-public class Task {
-    String description;
-    boolean isCompleted;
+public abstract class Task {
+    private String description;
+    private boolean isCompleted;
 
     public Task(String description) {
         this.description = description;
         isCompleted = false;
     }
 
-    public void markCompleted() {
+    public void markComplete() {
         this.isCompleted = true;
     }
 
