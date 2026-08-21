@@ -33,6 +33,7 @@ public class Input {
             } catch (NumberFormatException _) {
             }
         }
+
     }
 
     public boolean terminate() {

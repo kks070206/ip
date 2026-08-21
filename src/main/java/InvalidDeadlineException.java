@@ -1,0 +1,10 @@
+public class InvalidDeadlineException extends Exception {
+    public InvalidDeadlineException() {
+        super();
+    }
+
+    @Override
+    public String toString() {
+        return "Deadline commands are in the form \"deadline {description} /by {deadline}\"";
+    }
+}
