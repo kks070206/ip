@@ -39,6 +39,13 @@ public class Input {
                 this.type = CommandType.UNMARKTASK;
             } catch (NumberFormatException _) {
             }
+        } else if (parsedInput[0].equals("delete")) {
+            try {
+                Integer.parseInt(parsedInput[1]);
+                this.number = Integer.parseInt(parsedInput[1]);
+                this.type = CommandType.DELETETASK;
+            } catch (NumberFormatException _) {
+            }
         }
 
         if (this.type == null) {
@@ -104,6 +111,13 @@ public class Input {
                 jason.markTaskAsIncomplete(this.number);
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(this.jason.getTask(this.number));
+            }
+            case DELETETASK -> {
+                System.out.println("Alright. I will remove this task:");
+                System.out.println(this.jason.getTask(this.number));
+                jason.deleteTask(this.number);
+                System.out.printf("You have %d tasks left in your list%n", this.jason.size());
+
             }
         }
     }

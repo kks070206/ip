@@ -16,6 +16,10 @@ public class Jason {
         return this.taskList.get(i);
     }
 
+    public int size() {
+        return this.taskList.size();
+    }
+
     public void markTaskAsComplete(int i) throws InvalidIndexException {
         if (!taskList.isValidIndex(i)) throw new InvalidIndexException();
         this.getTask(i).markComplete();
@@ -24,5 +28,10 @@ public class Jason {
     public void markTaskAsIncomplete(int i) throws InvalidIndexException {
         if (!taskList.isValidIndex(i)) throw new InvalidIndexException();
         this.getTask(i).markIncomplete();
+    }
+
+    public void deleteTask(int i) throws InvalidIndexException{
+        if (!taskList.isValidIndex(i)) throw new InvalidIndexException();
+        this.taskList.remove(i);
     }
 }

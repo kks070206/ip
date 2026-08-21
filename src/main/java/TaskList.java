@@ -20,6 +20,10 @@ public class TaskList {
         return this.taskList.size();
     }
 
+    public void remove(int i) {
+        this.taskList.remove(get(i));
+    }
+
     public boolean isValidIndex(int i) {
         return i <= this.size() && i > 0;
     }
@@ -27,11 +31,15 @@ public class TaskList {
     @Override
     public String toString() {
         if (taskList.isEmpty()) return "List is empty. Please add something!";
-        String res = "";
+
+        String res = "Here are the tasks on your list: \n";
+
         for (int i = 1; i <= taskList.size(); i++) {
             res += String.format("%d. %s\n", i, this.taskList.get(i - 1));
         }
+
         res += String.format("You have %d tasks.", this.taskList.size());
+
         return res;
     }
 

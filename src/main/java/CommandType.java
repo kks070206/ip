@@ -4,5 +4,6 @@ public enum CommandType {
     ADDTASK,
     MARKTASK,
     UNMARKTASK,
+    DELETETASK,
     ENDTASK
 }
