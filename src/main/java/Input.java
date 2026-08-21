@@ -6,7 +6,7 @@ public class Input {
     private final String[] parsedInput;
     private final Jason jason;
     private CommandType type;
-    private int number = -1;
+    private int number;
 
     public Input(String description, Jason jason) throws InvalidCommandException{
         this.description = description;
