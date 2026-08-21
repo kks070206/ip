@@ -45,16 +45,16 @@ public class Input {
                 return new ToDo(description.split(" ", 2)[1]);
             }
             case "deadline" -> {
-                String[] parsedInputForDeadline = description.split("deadline\\s+|\\s+and\\s+", 2);
-                String taskDescription = parsedInputForDeadline[0];
-                String deadline = parsedInputForDeadline[1];
+                String[] parsedInputForDeadline = description.split("deadline\\s+|\\s+/by\\s+", 3);
+                String taskDescription = parsedInputForDeadline[1];
+                String deadline = parsedInputForDeadline[2];
                 return new Deadline(taskDescription, deadline);
             }
             case "event" -> {
-                String[] parsedInputForEvent = description.split("event\\s+|\\s+/from\\s+|\\s+/to\\s+", 3);
-                String taskDescription = parsedInputForEvent[0];
-                String startTime = parsedInputForEvent[1];
-                String endTime = parsedInputForEvent[2];
+                String[] parsedInputForEvent = description.split("event\\s+|\\s+/from\\s+|\\s+/to\\s+", 4);
+                String taskDescription = parsedInputForEvent[1];
+                String startTime = parsedInputForEvent[2];
+                String endTime = parsedInputForEvent[3];
                 return new Event(taskDescription, startTime, endTime);
             }
         }
