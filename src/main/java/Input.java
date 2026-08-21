@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.List;
+
 public class Input {
     private final String description;
     private final String[] parsedInput;
@@ -5,10 +8,14 @@ public class Input {
     private CommandType type;
     private int number = -1;
 
-    public Input(String description, Jason jason) {
+    public Input(String description, Jason jason) throws InvalidCommandException{
         this.description = description;
         this.jason = jason;
         parsedInput = description.split(" ");
+
+        if (description.equals("")) {
+            this.type = CommandType.INITIALISE;
+        }
 
         if (parsedInput[0].equals("todo") || parsedInput[0].equals("deadline") || parsedInput[0].equals("event")) {
             this.type = CommandType.ADDTASK;
@@ -34,24 +41,39 @@ public class Input {
             }
         }
 
+        if (this.type == null) {
+            throw new InvalidCommandException();
+        }
+
     }
 
     public boolean terminate() {
         return this.type == CommandType.ENDTASK;
     }
 
-    public Task createTask() {
+    public boolean verifyEventTask() {
+        List<String> list = Arrays.asList(parsedInput);
+        return parsedInput.length >= 6 && list.contains("/from") && list.contains("/to");
+    }
+
+    public Task createTask() throws InvalidToDoException, InvalidDeadlineException, InvalidEventException {
+
         switch (parsedInput[0]) {
             case "todo" -> {
+                if (parsedInput.length < 2) throw new InvalidToDoException();
                 return new ToDo(description.split(" ", 2)[1]);
             }
             case "deadline" -> {
+                if(parsedInput.length < 4 || !Arrays.asList(parsedInput).contains("/by")) {
+                    throw new InvalidDeadlineException();
+                }
                 String[] parsedInputForDeadline = description.split("deadline\\s+|\\s+/by\\s+", 3);
                 String taskDescription = parsedInputForDeadline[1];
                 String deadline = parsedInputForDeadline[2];
                 return new Deadline(taskDescription, deadline);
             }
             case "event" -> {
+                if (!verifyEventTask()) throw new InvalidEventException();
                 String[] parsedInputForEvent = description.split("event\\s+|\\s+/from\\s+|\\s+/to\\s+", 4);
                 String taskDescription = parsedInputForEvent[1];
                 String startTime = parsedInputForEvent[2];
@@ -63,7 +85,7 @@ public class Input {
         return new ToDo("");
     }
 
-    public void execute() {
+    public void execute() throws InvalidToDoException, InvalidDeadlineException, InvalidEventException {
         switch (this.type) {
             case SHOWLIST -> {
                 System.out.println(this.jason.taskList);

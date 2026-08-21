@@ -8,12 +8,23 @@ public class Main {
         System.out.println(Jason.HELP_MESSAGE);
 
         Scanner sc = new Scanner(System.in);
-        Input currentInput = new Input("", jason);
+        boolean isRunning = true;
 
-        while (!currentInput.terminate()) {
-            currentInput = new Input(sc.nextLine(), jason);
-            currentInput.execute();
+        while (isRunning) {
+            try {
+                Input currentInput = new Input("", jason);
+
+                while (!currentInput.terminate()) {
+                    currentInput = new Input(sc.nextLine(), jason);
+                    currentInput.execute();
+                }
+
+                isRunning = false;
+            } catch (InvalidCommandException e) {
+                System.out.println(e);
+            }
         }
+
         System.out.println(Jason.END_MESSAGE);
     }
 }

@@ -1,4 +1,4 @@
-public class InvalidEventException extends Exception {
+public class InvalidEventException extends InvalidCommandException {
     public InvalidEventException() {
         super();
     }

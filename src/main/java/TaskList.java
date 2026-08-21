@@ -17,10 +17,12 @@ public class TaskList {
     }
     @Override
     public String toString() {
+        if (taskList.isEmpty()) return "List is empty. Please add something!";
         String res = "";
         for (int i = 1; i <= taskList.size(); i++) {
             res += String.format("%d. %s\n", i, this.taskList.get(i - 1));
         }
+        res += String.format("You have %d tasks.", this.taskList.size());
         return res;
     }
 

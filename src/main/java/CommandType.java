@@ -1,4 +1,5 @@
 public enum CommandType {
+    INITIALISE,
     SHOWLIST,
     ADDTASK,
     MARKTASK,

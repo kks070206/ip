@@ -1,4 +1,4 @@
-public class InvalidDeadlineException extends Exception {
+public class InvalidDeadlineException extends InvalidCommandException {
     public InvalidDeadlineException() {
         super();
     }
