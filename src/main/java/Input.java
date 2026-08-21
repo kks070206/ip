@@ -85,7 +85,7 @@ public class Input {
         return new ToDo("");
     }
 
-    public void execute() throws InvalidToDoException, InvalidDeadlineException, InvalidEventException {
+    public void execute() throws InvalidToDoException, InvalidDeadlineException, InvalidEventException, InvalidIndexException {
         switch (this.type) {
             case SHOWLIST -> {
                 System.out.println(this.jason.taskList);

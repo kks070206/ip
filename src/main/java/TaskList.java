@@ -15,6 +15,15 @@ public class TaskList {
     public Task get(int i) {
         return this.taskList.get(i - 1);
     }
+
+    public int size() {
+        return this.taskList.size();
+    }
+
+    public boolean isValidIndex(int i) {
+        return i <= this.size() && i > 0;
+    }
+
     @Override
     public String toString() {
         if (taskList.isEmpty()) return "List is empty. Please add something!";

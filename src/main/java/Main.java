@@ -20,7 +20,7 @@ public class Main {
                 }
 
                 isRunning = false;
-            } catch (InvalidCommandException e) {
+            } catch (Exception e) {
                 System.out.println(e);
             }
         }

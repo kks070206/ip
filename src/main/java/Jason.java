@@ -16,11 +16,13 @@ public class Jason {
         return this.taskList.get(i);
     }
 
-    public void markTaskAsComplete(int i) {
+    public void markTaskAsComplete(int i) throws InvalidIndexException {
+        if (!taskList.isValidIndex(i)) throw new InvalidIndexException();
         this.getTask(i).markComplete();
     }
 
-    public void markTaskAsIncomplete(int i) {
+    public void markTaskAsIncomplete(int i) throws InvalidIndexException {
+        if (!taskList.isValidIndex(i)) throw new InvalidIndexException();
         this.getTask(i).markIncomplete();
     }
 }
