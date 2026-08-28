@@ -4,6 +4,22 @@ import java.util.List;
 
 /** Interprets user commands and creates tasks from add-task commands. */
 public class Parser {
+    /** Converts a complete user command into an executable command object. */
+    public Command parse(String description)
+            throws InvalidCommandException, InvalidToDoException, InvalidDeadlineException,
+            InvalidEventException {
+        CommandType type = parseType(description);
+        return switch (type) {
+            case ADDTASK -> new AddCommand(parseTask(description));
+            case SHOWLIST -> new ListCommand();
+            case MARKTASK -> new MarkCommand(parseIndex(description));
+            case UNMARKTASK -> new UnmarkCommand(parseIndex(description));
+            case DELETETASK -> new DeleteCommand(parseIndex(description));
+            case ENDTASK -> new ExitCommand();
+            default -> throw new InvalidCommandException();
+        };
+    }
+
     /** Determines the command represented by the supplied input. */
     public CommandType parseType(String description) throws InvalidCommandException {
         if (description == null) throw new InvalidCommandException();

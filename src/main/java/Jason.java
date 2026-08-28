@@ -5,6 +5,7 @@ public class Jason {
     private static final String SAVE_FILE = "./data/jason.txt";
     private final Storage storage;
     private final Ui ui;
+    private final Parser parser;
     public TaskList taskList;
 
     public Jason() {
@@ -17,6 +18,7 @@ public class Jason {
         this.storage = new Storage(SAVE_FILE);
         this.taskList = new TaskList(storage.load());
         this.ui = ui;
+        this.parser = new Parser();
     }
 
     public void addTask(Task t) {
@@ -62,18 +64,19 @@ public class Jason {
     /** Runs the command-line application until the user enters {@code bye}. */
     public void run() {
         ui.showWelcome();
-        boolean isRunning = true;
+        boolean isExit = false;
 
-        while (isRunning) {
+        while (!isExit) {
             try {
-                Input currentInput = new Input("", this, ui);
-                while (!currentInput.terminate()) {
-                    currentInput = new Input(ui.readCommand(), this, ui);
-                    currentInput.execute();
-                }
-                isRunning = false;
+                String fullCommand = ui.readCommand();
+                ui.showLine();
+                Command command = parser.parse(fullCommand);
+                command.execute(taskList, ui, storage);
+                isExit = command.isExit();
             } catch (Exception e) {
                 ui.showError(e);
+            } finally {
+                ui.showLine();
             }
         }
 

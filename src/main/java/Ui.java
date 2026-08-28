@@ -27,6 +27,11 @@ public class Ui {
         System.out.println(Jason.END_MESSAGE);
     }
 
+    /** Prints the divider between command-line interactions. */
+    public void showLine() {
+        System.out.println("_______");
+    }
+
     /** Prints an error message. */
     public void showError(Exception exception) {
         System.out.println(exception);

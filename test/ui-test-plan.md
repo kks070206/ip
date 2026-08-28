@@ -32,6 +32,8 @@ bye
 ```text
 Hello! My name is Jason, inspired by JSON files used by software engineers.
 How may I help you today?
+_______
+_______
 Goodbye! Hope to see you again.
 ```
 
