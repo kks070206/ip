@@ -4,11 +4,19 @@ public class Jason {
     public static final String END_MESSAGE = "Goodbye! Hope to see you again.";
     private static final String SAVE_FILE = "./data/jason.txt";
     private final Storage storage;
+    private final Ui ui;
     public TaskList taskList;
 
     public Jason() {
+        this(new Ui());
+    }
+
+    /** Creates Jason with the UI used by its application loop. */
+    public Jason(Ui ui) {
+        if (ui == null) throw new IllegalArgumentException("The UI cannot be null.");
         this.storage = new Storage(SAVE_FILE);
         this.taskList = new TaskList(storage.load());
+        this.ui = ui;
     }
 
     public void addTask(Task t) {
@@ -49,5 +57,26 @@ public class Jason {
      */
     private void saveTasks() {
         storage.save(taskList);
+    }
+
+    /** Runs the command-line application until the user enters {@code bye}. */
+    public void run() {
+        ui.showWelcome();
+        boolean isRunning = true;
+
+        while (isRunning) {
+            try {
+                Input currentInput = new Input("", this, ui);
+                while (!currentInput.terminate()) {
+                    currentInput = new Input(ui.readCommand(), this, ui);
+                    currentInput.execute();
+                }
+                isRunning = false;
+            } catch (Exception e) {
+                ui.showError(e);
+            }
+        }
+
+        ui.showGoodbye();
     }
 }
