@@ -1,6 +1,7 @@
 package jason.ui;
 
 import java.util.Scanner;
+import java.util.List;
 import jason.Jason;
 import jason.task.Task;
 import jason.task.TaskList;
@@ -45,6 +46,19 @@ public class Ui {
     /** Displays the current task list. */
     public void showTaskList(TaskList taskList) {
         System.out.println(taskList);
+    }
+
+    /** Displays tasks matching a search keyword. */
+    public void showMatchingTasks(List<Task> matchingTasks) {
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+            return;
+        }
+
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.printf("%d. %s%n", i + 1, matchingTasks.get(i));
+        }
     }
 
     /** Displays a newly added task. */

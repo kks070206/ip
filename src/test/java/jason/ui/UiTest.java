@@ -11,6 +11,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -55,6 +56,8 @@ class UiTest {
         ui.showMarkedComplete(task);
         ui.showMarkedIncomplete(task);
         ui.showDeletedTask(task, 0);
+        ui.showMatchingTasks(List.of(task));
+        ui.showMatchingTasks(List.of());
         ui.showError(new InvalidCommandException());
         ui.showGoodbye();
 
@@ -66,6 +69,8 @@ class UiTest {
         assertTrue(consoleOutput.contains("Nice! I have marked this task as done:"));
         assertTrue(consoleOutput.contains("OK, I've marked this task as not done yet:"));
         assertTrue(consoleOutput.contains("You have 0 tasks left in your list"));
+        assertTrue(consoleOutput.contains("Here are the matching tasks in your list:"));
+        assertTrue(consoleOutput.contains("No matching tasks found."));
         assertTrue(consoleOutput.contains("Invalid command."));
         assertTrue(consoleOutput.contains("Goodbye! Hope to see you again."));
     }

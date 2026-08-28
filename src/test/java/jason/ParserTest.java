@@ -4,6 +4,7 @@ import jason.command.AddCommand;
 import jason.command.Command;
 import jason.command.DeleteCommand;
 import jason.command.ExitCommand;
+import jason.command.FindCommand;
 import jason.command.ListCommand;
 import jason.command.MarkCommand;
 import jason.command.UnmarkCommand;
@@ -35,6 +36,7 @@ class ParserTest {
         assertInstanceOf(UnmarkCommand.class, parser.parse("unmark 1"));
         assertInstanceOf(DeleteCommand.class, parser.parse("delete 1"));
         assertInstanceOf(ExitCommand.class, parser.parse("bye"));
+        assertInstanceOf(FindCommand.class, parser.parse("find book"));
     }
 
     @Test
@@ -48,6 +50,12 @@ class ParserTest {
     void parse_indexCommandWithoutValidIndex_throwsException() {
         assertThrows(IllegalArgumentException.class, () -> parser.parse("mark"));
         assertThrows(IllegalArgumentException.class, () -> parser.parse("delete abc"));
+    }
+
+    @Test
+    void parse_findCommandWithoutKeyword_throwsInvalidCommandException() {
+        assertThrows(InvalidCommandException.class, () -> parser.parse("find"));
+        assertThrows(InvalidCommandException.class, () -> parser.parse("find   "));
     }
 
     @Test
