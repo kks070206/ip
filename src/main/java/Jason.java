@@ -1,7 +1,6 @@
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 
 public class Jason {
@@ -17,7 +16,6 @@ public class Jason {
     }
 
     public void addTask(Task t) {
-        if (t == null) throw new IllegalArgumentException("A task cannot be null.");
         this.taskList.add(t);
         saveTasks();
     }
@@ -48,7 +46,10 @@ public class Jason {
         saveTasks();
     }
 
-    /** Writes the current tasks to disk, without stopping the chatbot if saving fails. */
+    /**
+     * Writes the current task list to disk after a successful list mutation.
+     * The parent directory is created automatically the first time the file is saved.
+     */
     private void saveTasks() {
         try {
             Files.createDirectories(SAVE_FILE.getParent());
@@ -58,12 +59,14 @@ public class Jason {
                     writer.newLine();
                 }
             }
-        } catch (IOException | SecurityException e) {
-            reportPersistenceError("save", e);
+        } catch (IOException e) {
+            throw new IllegalStateException("Unable to save tasks to " + SAVE_FILE, e);
         }
     }
 
-    /** Converts a task into one line of the save-file format. */
+    /**
+     * Converts a task to the simple line format used by the save file.
+     */
     private String toSaveFormat(Task task) {
         String status = task.isCompleted() ? "1" : "0";
         if (task instanceof Deadline deadline) {
@@ -77,24 +80,27 @@ public class Jason {
         return String.format("T | %s | %s", status, task.getDescription());
     }
 
-    /** Loads tasks at startup; a missing file is a normal first-run condition. */
+    /**
+     * Loads previously saved tasks when the chatbot starts.
+     * Missing files are expected on the first run, while malformed lines are ignored.
+     */
     private void loadTasks() {
+        if (!Files.exists(SAVE_FILE)) return;
+
         try {
             for (String line : Files.readAllLines(SAVE_FILE)) {
                 Task task = fromSaveFormat(line);
-                if (task != null) taskList.add(task);
+                if (task != null) this.taskList.add(task);
             }
-        } catch (NoSuchFileException e) {
-            // There is no save file to load on the first run.
-        } catch (IOException | SecurityException e) {
-            reportPersistenceError("load", e);
+        } catch (IOException e) {
+            throw new IllegalStateException("Unable to load tasks from " + SAVE_FILE, e);
         }
     }
 
-    /** Parses one saved task, returning null when the record is invalid. */
+    /**
+     * Converts one saved line back into a task, or returns null for an invalid line.
+     */
     private Task fromSaveFormat(String line) {
-        if (line == null || line.isBlank()) return null;
-
         String[] fields = line.split("\\s*\\|\\s*", -1);
         if (fields.length < 3) return null;
 
@@ -105,26 +111,16 @@ public class Jason {
 
         Task task;
         switch (type) {
-            case "T" -> {
-                if (fields.length != 3) return null;
-                task = new ToDo(description);
-            }
+            case "T" -> task = new ToDo(description);
             case "D" -> {
-                if (fields.length != 4 || fields[3].trim().isEmpty()) return null;
+                if (fields.length < 4 || fields[3].trim().isEmpty()) return null;
                 task = new Deadline(description, fields[3].trim());
             }
             case "E" -> {
-                if (fields.length == 5) {
-                    task = new Event(description, fields[3].trim(), fields[4].trim());
-                } else if (fields.length == 4) {
-                    String[] times = fields[3].trim().split("-", 2);
-                    if (times.length != 2) return null;
-                    task = new Event(description, times[0].trim(), times[1].trim());
-                } else {
-                    return null;
-                }
-                if (task instanceof Event event
-                        && (event.getStartTime().isEmpty() || event.getEndTime().isEmpty())) return null;
+                if (fields.length < 4) return null;
+                String[] times = fields[3].trim().split("-", 2);
+                if (times.length < 2 || times[0].isEmpty() || times[1].isEmpty()) return null;
+                task = new Event(description, times[0].trim(), times[1].trim());
             }
             default -> {
                 return null;
@@ -133,11 +129,5 @@ public class Jason {
 
         if (status.equals("1")) task.markComplete();
         return task;
-    }
-
-    /** Reports a persistence error while allowing the chatbot to continue running. */
-    private void reportPersistenceError(String operation, Exception exception) {
-        System.err.printf("Warning: unable to %s tasks at %s (%s)%n",
-                operation, SAVE_FILE, exception.getMessage());
     }
 }

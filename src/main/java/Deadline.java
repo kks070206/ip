@@ -6,7 +6,9 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
-    /** Returns the deadline for persistence. */
+    /**
+     * Returns the deadline for persistence.
+     */
     public String getDeadline() {
         return this.deadline;
     }

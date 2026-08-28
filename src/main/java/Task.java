@@ -15,12 +15,16 @@ public abstract class Task {
         this.isCompleted = false;
     }
 
-    /** Returns the task description for persistence. */
+    /**
+     * Returns the task description for persistence.
+     */
     public String getDescription() {
         return this.description;
     }
 
-    /** Returns whether the task is complete. */
+    /**
+     * Returns whether this task has been completed.
+     */
     public boolean isCompleted() {
         return this.isCompleted;
     }
