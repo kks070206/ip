@@ -1,4 +1,9 @@
+package jason.ui;
+
 import java.util.Scanner;
+import jason.Jason;
+import jason.task.Task;
+import jason.task.TaskList;
 
 /**
  * Handles all interaction between Jason and the command-line user.

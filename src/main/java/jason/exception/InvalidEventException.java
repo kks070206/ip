@@ -1,3 +1,5 @@
+package jason.exception;
+
 public class InvalidEventException extends InvalidCommandException {
     public InvalidEventException() {
         super();

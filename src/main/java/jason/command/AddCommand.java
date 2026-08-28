@@ -1,3 +1,10 @@
+package jason.command;
+
+import jason.storage.Storage;
+import jason.task.Task;
+import jason.task.TaskList;
+import jason.ui.Ui;
+
 /** Adds a task to the task list and persists the updated list. */
 public class AddCommand extends Command {
     private final Task task;

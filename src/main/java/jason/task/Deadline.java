@@ -1,46 +1,40 @@
+package jason.task;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
-public class Event extends Task {
+public class Deadline extends Task {
     private static final DateTimeFormatter DISPLAY_FORMAT =
             DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", Locale.ENGLISH);
     private static final DateTimeFormatter INPUT_FORMAT =
             DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm", Locale.ENGLISH);
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDateTime deadline;
 
-    public Event(String description, String startDate, String endDate) {
+    public Deadline(String description, String deadline) {
         super(description);
-        this.startDate = parseDate(startDate);
-        this.endDate = parseDate(endDate);
+        this.deadline = parseDate(deadline);
     }
 
-    public Event(String description, LocalDateTime startDate, LocalDateTime endDate) {
+    public Deadline(String description, LocalDateTime deadline) {
         super(description);
-        if (startDate == null || endDate == null) {
-            throw new IllegalArgumentException("Event dates cannot be null.");
-        }
-        this.startDate = startDate;
-        this.endDate = endDate;
+        if (deadline == null) throw new IllegalArgumentException("A deadline date cannot be null.");
+        this.deadline = deadline;
     }
 
-    /** Returns the event start date for persistence. */
-    public LocalDateTime getStartDate() {
-        return this.startDate;
-    }
-
-    /** Returns the event end date for persistence. */
-    public LocalDateTime getEndDate() {
-        return this.endDate;
+    /**
+     * Returns the deadline for persistence.
+     */
+    public LocalDateTime getDeadline() {
+        return this.deadline;
     }
 
     @Override
     public String toString() {
-        return String.format("[E] %s (from: %s to: %s)", super.toString(),
-                this.startDate.format(DISPLAY_FORMAT), this.endDate.format(DISPLAY_FORMAT));
+        return String.format("[D] %s (by: %s)", super.toString(),
+                this.deadline.format(DISPLAY_FORMAT));
     }
 
     /** Parses the required ISO date format. */
@@ -59,5 +53,4 @@ public class Event extends Task {
             }
         }
     }
-
 }

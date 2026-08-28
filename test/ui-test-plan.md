@@ -18,7 +18,7 @@ Verify that the chatbot starts and exits when the user enters `bye`.
 ### Command
 
 ```shell
-java -cp out/production/ip Main
+java -cp out/production/ip jason.Main
 ```
 
 ### Input

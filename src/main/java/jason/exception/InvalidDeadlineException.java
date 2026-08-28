@@ -1,3 +1,5 @@
+package jason.exception;
+
 public class InvalidDeadlineException extends InvalidCommandException {
     public InvalidDeadlineException() {
         super();

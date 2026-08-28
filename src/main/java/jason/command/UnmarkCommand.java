@@ -1,3 +1,10 @@
+package jason.command;
+
+import jason.exception.InvalidIndexException;
+import jason.storage.Storage;
+import jason.task.TaskList;
+import jason.ui.Ui;
+
 /** Marks one task as incomplete and persists the updated list. */
 public class UnmarkCommand extends Command {
     private final int index;

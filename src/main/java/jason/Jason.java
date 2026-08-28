@@ -1,3 +1,12 @@
+package jason;
+
+import jason.command.Command;
+import jason.exception.InvalidIndexException;
+import jason.storage.Storage;
+import jason.task.Task;
+import jason.task.TaskList;
+import jason.ui.Ui;
+
 public class Jason {
     public static final String START_MESSAGE = "Hello! My name is Jason, inspired by JSON files used by software engineers.";
     public static final String HELP_MESSAGE = "How may I help you today?";

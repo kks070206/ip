@@ -1,3 +1,11 @@
+package jason.command;
+
+import jason.exception.InvalidIndexException;
+import jason.storage.Storage;
+import jason.task.Task;
+import jason.task.TaskList;
+import jason.ui.Ui;
+
 /** Deletes one task and persists the updated list. */
 public class DeleteCommand extends Command {
     private final int index;

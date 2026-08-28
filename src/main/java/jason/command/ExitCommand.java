@@ -1,3 +1,9 @@
+package jason.command;
+
+import jason.storage.Storage;
+import jason.task.TaskList;
+import jason.ui.Ui;
+
 /** Ends the application without changing the task list. */
 public class ExitCommand extends Command {
     @Override

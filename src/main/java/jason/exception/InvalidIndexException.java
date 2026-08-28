@@ -1,3 +1,5 @@
+package jason.exception;
+
 public class InvalidIndexException extends Exception {
     public InvalidIndexException() {
         super();
@@ -8,4 +10,3 @@ public class InvalidIndexException extends Exception {
         return "No such index in list.";
     }
 }
-
