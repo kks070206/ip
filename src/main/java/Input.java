@@ -6,12 +6,18 @@ public class Input {
     private final String description;
     private final String[] parsedInput;
     private final Jason jason;
+    private final Ui ui;
     private CommandType type;
     private int number;
 
     public Input(String description, Jason jason) throws InvalidCommandException{
+        this(description, jason, new Ui());
+    }
+
+    public Input(String description, Jason jason, Ui ui) throws InvalidCommandException{
         this.description = description;
         this.jason = jason;
+        this.ui = ui;
         parsedInput = description.split(" ");
 
         if (description.equals("")) {
@@ -104,28 +110,25 @@ public class Input {
     public void execute() throws InvalidToDoException, InvalidDeadlineException, InvalidEventException, InvalidIndexException {
         switch (this.type) {
             case SHOWLIST -> {
-                System.out.println(this.jason.taskList);
+                ui.showTaskList(this.jason.taskList);
             }
             case ADDTASK -> {
                 Task newTask = this.createTask();
                 jason.addTask(newTask);
-                System.out.println("Added: " + newTask);
+                ui.showAddedTask(newTask);
             }
             case MARKTASK -> {
                 jason.markTaskAsComplete(this.number);
-                System.out.println("Nice! I have marked this task as done:");
-                System.out.println(this.jason.getTask(this.number));
+                ui.showMarkedComplete(this.jason.getTask(this.number));
             }
             case UNMARKTASK -> {
                 jason.markTaskAsIncomplete(this.number);
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(this.jason.getTask(this.number));
+                ui.showMarkedIncomplete(this.jason.getTask(this.number));
             }
             case DELETETASK -> {
-                System.out.println("Alright. I will remove this task:");
-                System.out.println(this.jason.getTask(this.number));
+                Task deletedTask = this.jason.getTask(this.number);
                 jason.deleteTask(this.number);
-                System.out.printf("You have %d tasks left in your list%n", this.jason.size());
+                ui.showDeletedTask(deletedTask, this.jason.size());
 
             }
         }

@@ -1,30 +1,25 @@
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
         Jason jason = new Jason();
-
-        System.out.println(Jason.START_MESSAGE);
-        System.out.println(Jason.HELP_MESSAGE);
-
-        Scanner sc = new Scanner(System.in);
+        Ui ui = new Ui();
+        ui.showWelcome();
         boolean isRunning = true;
 
         while (isRunning) {
             try {
-                Input currentInput = new Input("", jason);
+                Input currentInput = new Input("", jason, ui);
 
                 while (!currentInput.terminate()) {
-                    currentInput = new Input(sc.nextLine(), jason);
+                    currentInput = new Input(ui.readCommand(), jason, ui);
                     currentInput.execute();
                 }
 
                 isRunning = false;
             } catch (Exception e) {
-                System.out.println(e);
+                ui.showError(e);
             }
         }
 
-        System.out.println(Jason.END_MESSAGE);
+        ui.showGoodbye();
     }
 }
