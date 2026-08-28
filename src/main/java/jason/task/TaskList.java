@@ -2,6 +2,7 @@ package jason.task;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /** Stores tasks and provides one-based list operations for the application. */
 public class TaskList {
@@ -12,7 +13,6 @@ public class TaskList {
         this.taskList = new ArrayList<>();
     }
 
-    /** Creates a task list containing the supplied tasks. */
     /** Creates a task list containing a copy of the supplied tasks. */
     public TaskList(List<Task> tasks) {
         this.taskList = new ArrayList<>(tasks);
@@ -41,6 +41,16 @@ public class TaskList {
     /** Returns whether a one-based index identifies a task in this list. */
     public boolean isValidIndex(int i) {
         return i <= this.size() && i > 0;
+    }
+
+    /** Returns tasks whose descriptions contain the keyword, ignoring letter case. */
+    public List<Task> find(String keyword) {
+        if (keyword == null || keyword.isBlank()) return List.of();
+
+        String searchTerm = keyword.trim().toLowerCase(Locale.ROOT);
+        return taskList.stream()
+                .filter(task -> task.getDescription().toLowerCase(Locale.ROOT).contains(searchTerm))
+                .toList();
     }
 
     /** Returns a numbered, human-readable representation of the task list. */

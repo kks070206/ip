@@ -7,6 +7,7 @@ import jason.command.AddCommand;
 import jason.command.Command;
 import jason.command.DeleteCommand;
 import jason.command.ExitCommand;
+import jason.command.FindCommand;
 import jason.command.ListCommand;
 import jason.command.MarkCommand;
 import jason.command.UnmarkCommand;
@@ -31,12 +32,22 @@ public class Parser {
         return switch (words[0]) {
             case "todo", "deadline", "event" -> new AddCommand(parseTask(description));
             case "list" -> new ListCommand();
+            case "find" -> new FindCommand(parseKeyword(description));
             case "bye" -> new ExitCommand();
             case "mark" -> new MarkCommand(parseIndex(description));
             case "unmark" -> new UnmarkCommand(parseIndex(description));
             case "delete" -> new DeleteCommand(parseIndex(description));
             default -> throw new InvalidCommandException();
         };
+    }
+
+    /** Returns the search keyword from a find command. */
+    private String parseKeyword(String description) throws InvalidCommandException {
+        String[] parts = description.trim().split("\\s+", 2);
+        if (parts.length < 2 || parts[1].isBlank()) {
+            throw new InvalidCommandException();
+        }
+        return parts[1].trim();
     }
 
     /** Returns the task index from a mark, unmark, or delete command. */

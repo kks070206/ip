@@ -145,4 +145,35 @@ class TaskListTest {
         assertFalse(tasks.isValidIndex(2));
         assertFalse(tasks.isValidIndex(Integer.MAX_VALUE));
     }
+
+    @Test
+    void find_keywordMatchesDescriptionsIgnoringCase_returnsTasksInOrder() {
+        Task first = new ToDo("read book");
+        Task second = new ToDo("return BOOK");
+        TaskList tasks = new TaskList();
+        tasks.add(first);
+        tasks.add(new ToDo("go jogging"));
+        tasks.add(second);
+
+        assertEquals(List.of(first, second), tasks.find("book"));
+    }
+
+    @Test
+    void find_keywordDoesNotMatchMetadata_returnsNoTasks() {
+        TaskList tasks = new TaskList();
+        tasks.add(new Deadline("submit report", "2019-10-15 18:00"));
+
+        assertTrue(tasks.find("2019").isEmpty());
+        assertTrue(tasks.find("report").size() == 1);
+    }
+
+    @Test
+    void find_blankOrNullKeyword_returnsNoTasks() {
+        TaskList tasks = new TaskList();
+        tasks.add(new ToDo("read book"));
+
+        assertTrue(tasks.find("").isEmpty());
+        assertTrue(tasks.find("   ").isEmpty());
+        assertTrue(tasks.find(null).isEmpty());
+    }
 }

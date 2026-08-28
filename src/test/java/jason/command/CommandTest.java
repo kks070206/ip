@@ -85,4 +85,19 @@ class CommandTest {
         assertTrue(new ExitCommand().isExit());
         assertFalse(new ListCommand().isExit());
     }
+
+    @Test
+    void findCommand_execute_doesNotChangeTaskList() {
+        TaskList tasks = new TaskList();
+        tasks.add(new ToDo("read book"));
+
+        new FindCommand("book").execute(tasks, new Ui(), storage());
+
+        assertTrue(tasks.size() == 1);
+    }
+
+    @Test
+    void findCommand_blankKeyword_throwsException() {
+        assertThrows(IllegalArgumentException.class, () -> new FindCommand(" "));
+    }
 }
