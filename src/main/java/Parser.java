@@ -8,52 +8,28 @@ public class Parser {
     public Command parse(String description)
             throws InvalidCommandException, InvalidToDoException, InvalidDeadlineException,
             InvalidEventException {
-        CommandType type = parseType(description);
-        return switch (type) {
-            case ADDTASK -> new AddCommand(parseTask(description));
-            case SHOWLIST -> new ListCommand();
-            case MARKTASK -> new MarkCommand(parseIndex(description));
-            case UNMARKTASK -> new UnmarkCommand(parseIndex(description));
-            case DELETETASK -> new DeleteCommand(parseIndex(description));
-            case ENDTASK -> new ExitCommand();
+        if (description == null) throw new InvalidCommandException();
+        String[] words = description.split(" ");
+        if (words.length == 0 || words[0].isEmpty()) throw new InvalidCommandException();
+        return switch (words[0]) {
+            case "todo", "deadline", "event" -> new AddCommand(parseTask(description));
+            case "list" -> new ListCommand();
+            case "bye" -> new ExitCommand();
+            case "mark" -> new MarkCommand(parseIndex(description));
+            case "unmark" -> new UnmarkCommand(parseIndex(description));
+            case "delete" -> new DeleteCommand(parseIndex(description));
             default -> throw new InvalidCommandException();
         };
-    }
-
-    /** Determines the command represented by the supplied input. */
-    public CommandType parseType(String description) throws InvalidCommandException {
-        if (description == null) throw new InvalidCommandException();
-        if (description.equals("")) return CommandType.INITIALISE;
-        if (description.equals("list")) return CommandType.SHOWLIST;
-        if (description.equals("bye")) return CommandType.ENDTASK;
-
-        String[] words = description.split(" ");
-        if (words.length > 0 && (words[0].equals("todo")
-                || words[0].equals("deadline") || words[0].equals("event"))) {
-            return CommandType.ADDTASK;
-        }
-        if (words.length > 0 && (words[0].equals("mark")
-                || words[0].equals("unmark") || words[0].equals("delete"))) {
-            if (words.length > 1) {
-                try {
-                    Integer.parseInt(words[1]);
-                    return commandTypeFor(words[0]);
-                } catch (NumberFormatException ignored) {
-                    // Fall through to the standard invalid-command error.
-                }
-            }
-        }
-        throw new InvalidCommandException();
     }
 
     /** Returns the task index from a mark, unmark, or delete command. */
     public int parseIndex(String description) {
         String[] words = description.split(" ");
-        if (words.length < 2) return 0;
+        if (words.length < 2) throw new IllegalArgumentException("A task index is required.");
         try {
             return Integer.parseInt(words[1]);
         } catch (NumberFormatException ignored) {
-            return 0;
+            throw new IllegalArgumentException("The task index must be a number.");
         }
     }
 
@@ -95,12 +71,4 @@ public class Parser {
         }
     }
 
-    private CommandType commandTypeFor(String command) {
-        return switch (command) {
-            case "mark" -> CommandType.MARKTASK;
-            case "unmark" -> CommandType.UNMARKTASK;
-            case "delete" -> CommandType.DELETETASK;
-            default -> throw new IllegalArgumentException("Unknown command: " + command);
-        };
-    }
 }
