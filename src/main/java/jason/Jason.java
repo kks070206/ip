@@ -7,6 +7,7 @@ import jason.task.Task;
 import jason.task.TaskList;
 import jason.ui.Ui;
 
+/** Coordinates the user interface, command execution, task list, and storage. */
 public class Jason {
     public static final String START_MESSAGE = "Hello! My name is Jason, inspired by JSON files used by software engineers.";
     public static final String HELP_MESSAGE = "How may I help you today?";
@@ -17,6 +18,7 @@ public class Jason {
     private final Parser parser;
     public TaskList taskList;
 
+    /** Creates Jason with the default command-line UI. */
     public Jason() {
         this(new Ui());
     }
@@ -30,32 +32,38 @@ public class Jason {
         this.parser = new Parser();
     }
 
+    /** Adds a task and persists the updated task list. */
     public void addTask(Task t) {
         if (t == null) throw new IllegalArgumentException("A task cannot be null.");
         this.taskList.add(t);
         saveTasks();
     }
 
+    /** Returns the task at a one-based list index. */
     public Task getTask(int i) {
         return this.taskList.get(i);
     }
 
+    /** Returns the number of tasks currently stored. */
     public int size() {
         return this.taskList.size();
     }
 
+    /** Marks the task at a one-based index complete and persists the change. */
     public void markTaskAsComplete(int i) throws InvalidIndexException {
         if (!taskList.isValidIndex(i)) throw new InvalidIndexException();
         this.getTask(i).markComplete();
         saveTasks();
     }
 
+    /** Marks the task at a one-based index incomplete and persists the change. */
     public void markTaskAsIncomplete(int i) throws InvalidIndexException {
         if (!taskList.isValidIndex(i)) throw new InvalidIndexException();
         this.getTask(i).markIncomplete();
         saveTasks();
     }
 
+    /** Deletes the task at a one-based index and persists the change. */
     public void deleteTask(int i) throws InvalidIndexException{
         if (!taskList.isValidIndex(i)) throw new InvalidIndexException();
         this.taskList.remove(i);

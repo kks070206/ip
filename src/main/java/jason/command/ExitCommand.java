@@ -7,6 +7,7 @@ import jason.ui.Ui;
 /** Ends the application without changing the task list. */
 public class ExitCommand extends Command {
     @Override
+    /** Performs no state change because the application is exiting. */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         // There is no work to do when exiting.
     }
