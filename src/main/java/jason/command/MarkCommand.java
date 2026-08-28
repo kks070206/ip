@@ -9,10 +9,12 @@ import jason.ui.Ui;
 public class MarkCommand extends Command {
     private final int index;
 
+    /** Creates a mark command for a one-based task index. */
     public MarkCommand(int index) {
         this.index = index;
     }
 
+    /** Marks the selected task complete, saves the list, and reports the change. */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
         if (!tasks.isValidIndex(index)) throw new InvalidIndexException();

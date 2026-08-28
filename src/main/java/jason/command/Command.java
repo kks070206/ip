@@ -16,6 +16,7 @@ public abstract class Command {
             InvalidIndexException;
 
     /** Returns whether this command ends the application. */
+    /** Returns false unless a concrete command represents application exit. */
     public boolean isExit() {
         return false;
     }

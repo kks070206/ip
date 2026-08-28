@@ -60,6 +60,7 @@ public class Storage {
         }
     }
 
+    /** Converts a task into the line format used by the save file. */
     private String toSaveFormat(Task task) {
         String status = task.isCompleted() ? "1" : "0";
         if (task instanceof Deadline deadline) {
@@ -73,6 +74,7 @@ public class Storage {
         return String.format("T | %s | %s", status, task.getDescription());
     }
 
+    /** Parses one saved line, returning null when the record is malformed. */
     private Task fromSaveFormat(String line) {
         if (line == null || line.isBlank()) return null;
         String[] fields = line.split("\\s*\\|\\s*", -1);
@@ -114,6 +116,7 @@ public class Storage {
         return task;
     }
 
+    /** Parses a saved date-time, accepting older date-only records as midnight. */
     private LocalDateTime parseDateTime(String value) {
         try {
             return LocalDateTime.parse(value);
@@ -122,6 +125,7 @@ public class Storage {
         }
     }
 
+    /** Reports an I/O or permission problem without terminating the application. */
     private void reportError(String operation, Exception exception) {
         System.err.printf("Warning: unable to %s tasks at %s (%s)%n",
                 operation, filePath, exception.getMessage());

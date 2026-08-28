@@ -6,6 +6,7 @@ import jason.ui.Ui;
 
 /** Displays the current task list. */
 public class ListCommand extends Command {
+    /** Displays the supplied task list without changing it. */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showTaskList(tasks);

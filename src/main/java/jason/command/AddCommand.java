@@ -9,10 +9,12 @@ import jason.ui.Ui;
 public class AddCommand extends Command {
     private final Task task;
 
+    /** Creates an add command for a task. */
     public AddCommand(Task task) {
         this.task = task;
     }
 
+    /** Adds the task, saves the list, and reports the addition. */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);

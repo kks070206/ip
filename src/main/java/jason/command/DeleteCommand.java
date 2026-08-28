@@ -10,10 +10,12 @@ import jason.ui.Ui;
 public class DeleteCommand extends Command {
     private final int index;
 
+    /** Creates a delete command for a one-based task index. */
     public DeleteCommand(int index) {
         this.index = index;
     }
 
+    /** Deletes the selected task, saves the list, and reports the deletion. */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
         if (!tasks.isValidIndex(index)) throw new InvalidIndexException();
