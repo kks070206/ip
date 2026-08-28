@@ -44,3 +44,11 @@ After every code update:
    ```bash
    python3 .codex/skills/test-ui/scripts/run_ui_tests.py test/ui-test-plan.md
    ```
+
+## Java coding standard
+
+All Java code in this project must follow the project-specific `seedu-java-coding-standard` skill, based on the SE-EDU basic and intermediate Java coding conventions. Invoke that skill when reviewing or updating Java code, and apply its rules to new and modified code.
+
+## Git standard
+
+All future commits and branches in this project must follow the project-specific `git-standard` skill, based on the SE-EDU Git conventions. Invoke that skill before creating or proposing commits or branches. Commit subjects must be imperative, capitalized, period-free, and no longer than 72 characters; non-trivial commit bodies must explain what changed and why, with lines wrapped at 72 characters.

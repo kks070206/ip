@@ -25,9 +25,13 @@ public class Parser {
     public Command parse(String description)
             throws InvalidCommandException, InvalidToDoException, InvalidDeadlineException,
             InvalidEventException {
-        if (description == null) throw new InvalidCommandException();
+        if (description == null) {
+            throw new InvalidCommandException();
+        }
         String[] words = description.split(" ");
-        if (words.length == 0 || words[0].isEmpty()) throw new InvalidCommandException();
+        if (words.length == 0 || words[0].isEmpty()) {
+            throw new InvalidCommandException();
+        }
         return switch (words[0]) {
             case "todo", "deadline", "event" -> new AddCommand(parseTask(description));
             case "list" -> new ListCommand();
@@ -42,7 +46,9 @@ public class Parser {
     /** Returns the task index from a mark, unmark, or delete command. */
     public int parseIndex(String description) {
         String[] words = description.split(" ");
-        if (words.length < 2) throw new IllegalArgumentException("A task index is required.");
+        if (words.length < 2) {
+            throw new IllegalArgumentException("A task index is required.");
+        }
         try {
             return Integer.parseInt(words[1]);
         } catch (NumberFormatException ignored) {
@@ -54,11 +60,15 @@ public class Parser {
     public Task parseTask(String description)
             throws InvalidToDoException, InvalidDeadlineException, InvalidEventException {
         String[] parsedInput = description.split(" ");
-        if (parsedInput.length == 0) throw new InvalidToDoException();
+        if (parsedInput.length == 0) {
+            throw new InvalidToDoException();
+        }
 
         switch (parsedInput[0]) {
             case "todo" -> {
-                if (parsedInput.length < 2) throw new InvalidToDoException();
+                if (parsedInput.length < 2) {
+                    throw new InvalidToDoException();
+                }
                 return new ToDo(description.split(" ", 2)[1]);
             }
             case "deadline" -> {
@@ -74,7 +84,8 @@ public class Parser {
             }
             case "event" -> {
                 List<String> words = Arrays.asList(parsedInput);
-                if (parsedInput.length < 6 || !words.contains("/from") || !words.contains("/to")) {
+                if (parsedInput.length < 6 || !words.contains("/from")
+                        || !words.contains("/to")) {
                     throw new InvalidEventException();
                 }
                 String[] parts = description.split("event\\s+|\\s+/from\\s+|\\s+/to\\s+", 4);

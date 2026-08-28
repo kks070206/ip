@@ -1,7 +1,7 @@
 package jason.task;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /** Stores tasks and provides one-based list operations for the application. */
 public class TaskList {
@@ -46,7 +46,9 @@ public class TaskList {
     /** Returns a numbered, human-readable representation of the task list. */
     @Override
     public String toString() {
-        if (taskList.isEmpty()) return "List is empty. Please add something!";
+        if (taskList.isEmpty()) {
+            return "List is empty. Please add something!";
+        }
 
         String res = "Here are the tasks on your list: \n";
 
