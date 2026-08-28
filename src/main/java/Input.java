@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.List;
+import java.time.format.DateTimeParseException;
 
 public class Input {
     private final String description;
@@ -77,7 +78,11 @@ public class Input {
                 String[] parsedInputForDeadline = description.split("deadline\\s+|\\s+/by\\s+", 3);
                 String taskDescription = parsedInputForDeadline[1];
                 String deadline = parsedInputForDeadline[2];
-                return new Deadline(taskDescription, deadline);
+                try {
+                    return new Deadline(taskDescription, deadline);
+                } catch (DateTimeParseException e) {
+                    throw new InvalidDeadlineException();
+                }
             }
             case "event" -> {
                 if (!verifyEventTask()) throw new InvalidEventException();
@@ -85,7 +90,11 @@ public class Input {
                 String taskDescription = parsedInputForEvent[1];
                 String startTime = parsedInputForEvent[2];
                 String endTime = parsedInputForEvent[3];
-                return new Event(taskDescription, startTime, endTime);
+                try {
+                    return new Event(taskDescription, startTime, endTime);
+                } catch (DateTimeParseException e) {
+                    throw new InvalidEventException();
+                }
             }
         }
         // will not reach

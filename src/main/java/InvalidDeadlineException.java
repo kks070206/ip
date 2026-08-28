@@ -5,6 +5,6 @@ public class InvalidDeadlineException extends InvalidCommandException {
 
     @Override
     public String toString() {
-        return "Deadline commands are in the form \"deadline {description} /by {deadline}\"";
+        return "Deadline commands are in the form \"deadline {description} /by {YYYY-MM-DD HH:MM}\"";
     }
 }

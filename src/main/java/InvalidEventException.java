@@ -5,6 +5,6 @@ public class InvalidEventException extends InvalidCommandException {
 
     @Override
     public String toString() {
-        return "Event commands are in the form \"event {description} /from {starting time} /to {ending time}\"";
+        return "Event commands are in the form \"event {description} /from {YYYY-MM-DD HH:MM} /to {YYYY-MM-DD HH:MM}\"";
     }
 }
