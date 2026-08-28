@@ -20,7 +20,11 @@ import jason.task.ToDo;
 public class Storage {
     private final Path filePath;
 
-    /** Creates storage backed by the supplied relative or absolute path. */
+    /** Creates storage backed by the supplied relative or absolute path.
+     *
+     * @param filePath relative or absolute path of the save file.
+     * @throws IllegalArgumentException if the path is null or blank.
+     */
     public Storage(String filePath) {
         if (filePath == null || filePath.isBlank()) {
             throw new IllegalArgumentException("The storage file path cannot be empty.");
@@ -28,7 +32,10 @@ public class Storage {
         this.filePath = Path.of(filePath);
     }
 
-    /** Loads all valid tasks, returning an empty list when the file does not exist. */
+    /** Loads all valid tasks, returning an empty list when the file does not exist.
+     *
+     * @return valid tasks read from the save file.
+     */
     public List<Task> load() {
         List<Task> tasks = new ArrayList<>();
         try {
@@ -46,7 +53,11 @@ public class Storage {
         return tasks;
     }
 
-    /** Saves the current task list, creating its parent directory when needed. */
+    /** Saves the current task list, creating its parent directory when needed.
+     *
+     * @param tasks task list to save.
+     * @throws IllegalArgumentException if the task list is null.
+     */
     public void save(TaskList tasks) {
         if (tasks == null) {
             throw new IllegalArgumentException("The task list cannot be null.");

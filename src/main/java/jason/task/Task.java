@@ -5,7 +5,10 @@ public abstract class Task {
     private String description;
     private boolean isCompleted;
 
-    /** Creates an incomplete task with the supplied description. */
+    /** Creates an incomplete task with the supplied description.
+     *
+     * @param description text describing the task.
+     */
     public Task(String description) {
         this.description = description;
         isCompleted = false;
@@ -21,22 +24,27 @@ public abstract class Task {
         this.isCompleted = false;
     }
 
-    /**
-     * Returns the task description for persistence.
+    /** Returns the task description for persistence.
+     *
+     * @return task description.
      */
     public String getDescription() {
         return this.description;
     }
 
-    /**
-     * Returns whether this task has been completed.
+    /** Returns whether this task has been completed.
+     *
+     * @return true if the task is complete; otherwise false.
      */
     public boolean isCompleted() {
         return this.isCompleted;
     }
 
+    /** Returns the completion marker and description for display.
+     *
+     * @return formatted task description with its completion marker.
+     */
     @Override
-    /** Returns the completion marker and description for display. */
     public String toString()  {
         if (this.isCompleted) {
             return String.format("[X] %s", this.description);

@@ -7,8 +7,11 @@ public class InvalidEventException extends InvalidCommandException {
         super();
     }
 
+    /** Returns the expected event command format.
+     *
+     * @return expected event command format.
+     */
     @Override
-    /** Returns the expected event command format. */
     public String toString() {
         return "Event commands are in the form \"event {description} /from {YYYY-MM-DD HH:MM} /to {YYYY-MM-DD HH:MM}\"";
     }

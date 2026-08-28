@@ -24,7 +24,10 @@ public class Jason {
         this(new Ui());
     }
 
-    /** Creates Jason with the UI used by its application loop. */
+    /** Creates Jason with the UI used by its application loop.
+     *
+     * @param ui user interface used to interact with the user.
+     */
     public Jason(Ui ui) {
         if (ui == null) {
             throw new IllegalArgumentException("The UI cannot be null.");
@@ -35,7 +38,11 @@ public class Jason {
         this.parser = new Parser();
     }
 
-    /** Adds a task and persists the updated task list. */
+    /** Adds a task and persists the updated task list.
+     *
+     * @param t task to add.
+     * @throws IllegalArgumentException if the task is null.
+     */
     public void addTask(Task t) {
         if (t == null) {
             throw new IllegalArgumentException("A task cannot be null.");
@@ -44,22 +51,36 @@ public class Jason {
         saveTasks();
     }
 
-    /** Returns the task at a one-based list index. */
+    /** Returns the task at a one-based list index.
+     *
+     * @param i one-based index of the task.
+     * @return task at the specified index.
+     */
     public Task getTask(int i) {
         return this.taskList.get(i);
     }
 
-    /** Returns the number of tasks currently stored. */
+    /** Returns the number of tasks currently stored.
+     *
+     * @return number of stored tasks.
+     */
     public int size() {
         return this.taskList.size();
     }
 
-    /** Returns the task list managed by Jason. */
+    /** Returns the task list managed by Jason.
+     *
+     * @return Jason's task list.
+     */
     public TaskList getTaskList() {
         return this.taskList;
     }
 
-    /** Marks the task at a one-based index complete and persists the change. */
+    /** Marks the task at a one-based index complete and persists the change.
+     *
+     * @param i one-based index of the task.
+     * @throws InvalidIndexException if the index does not identify a task.
+     */
     public void markTaskAsComplete(int i) throws InvalidIndexException {
         if (!taskList.isValidIndex(i)) {
             throw new InvalidIndexException();
@@ -68,7 +89,11 @@ public class Jason {
         saveTasks();
     }
 
-    /** Marks the task at a one-based index incomplete and persists the change. */
+    /** Marks the task at a one-based index incomplete and persists the change.
+     *
+     * @param i one-based index of the task.
+     * @throws InvalidIndexException if the index does not identify a task.
+     */
     public void markTaskAsIncomplete(int i) throws InvalidIndexException {
         if (!taskList.isValidIndex(i)) {
             throw new InvalidIndexException();
@@ -77,7 +102,11 @@ public class Jason {
         saveTasks();
     }
 
-    /** Deletes the task at a one-based index and persists the change. */
+    /** Deletes the task at a one-based index and persists the change.
+     *
+     * @param i one-based index of the task.
+     * @throws InvalidIndexException if the index does not identify a task.
+     */
     public void deleteTask(int i) throws InvalidIndexException{
         if (!taskList.isValidIndex(i)) {
             throw new InvalidIndexException();

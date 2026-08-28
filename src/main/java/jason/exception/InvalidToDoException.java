@@ -7,8 +7,11 @@ public class InvalidToDoException extends InvalidCommandException {
         super();
     }
 
+    /** Returns the expected todo command format.
+     *
+     * @return expected todo command format.
+     */
     @Override
-    /** Returns the expected todo command format. */
     public String toString() {
         return "ToDo commands are in the form \"todo {description}\"";
     }

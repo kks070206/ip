@@ -7,8 +7,11 @@ public class InvalidDeadlineException extends InvalidCommandException {
         super();
     }
 
+    /** Returns the expected deadline command format.
+     *
+     * @return expected deadline command format.
+     */
     @Override
-    /** Returns the expected deadline command format. */
     public String toString() {
         return "Deadline commands are in the form \"deadline {description} /by {YYYY-MM-DD HH:MM}\"";
     }

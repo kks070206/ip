@@ -14,13 +14,22 @@ public class Deadline extends Task {
             DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm", Locale.ENGLISH);
     private LocalDateTime deadline;
 
-    /** Creates a deadline from an ISO date-time or date-only string. */
+    /** Creates a deadline from an ISO date-time or date-only string.
+     *
+     * @param description text describing the task.
+     * @param deadline deadline date and time.
+     */
     public Deadline(String description, String deadline) {
         super(description);
         this.deadline = parseDate(deadline);
     }
 
-    /** Creates a deadline from a typed date-time value. */
+    /** Creates a deadline from a typed date-time value.
+     *
+     * @param description text describing the task.
+     * @param deadline deadline date and time.
+     * @throws IllegalArgumentException if the deadline is null.
+     */
     public Deadline(String description, LocalDateTime deadline) {
         super(description);
         if (deadline == null) {
@@ -29,15 +38,19 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
-    /**
-     * Returns the deadline for persistence.
+    /** Returns the deadline for persistence.
+     *
+     * @return deadline date and time.
      */
     public LocalDateTime getDeadline() {
         return this.deadline;
     }
 
+    /** Returns the deadline task formatted for the user interface.
+     *
+     * @return formatted deadline description.
+     */
     @Override
-    /** Returns the deadline task formatted for the user interface. */
     public String toString() {
         return String.format("[D] %s (by: %s)", super.toString(),
                 this.deadline.format(DISPLAY_FORMAT));

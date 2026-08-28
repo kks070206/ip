@@ -7,8 +7,11 @@ public class InvalidCommandException extends Exception {
         super();
     }
 
+    /** Returns guidance for correcting the command.
+     *
+     * @return invalid-command guidance.
+     */
     @Override
-    /** Returns guidance for correcting the command. */
     public String toString() {
         return "Invalid command. Please refer to the documents on how to use me.";
     }

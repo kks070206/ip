@@ -15,14 +15,25 @@ public class Event extends Task {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    /** Creates an event from ISO date-time or date-only strings. */
+    /** Creates an event from ISO date-time or date-only strings.
+     *
+     * @param description text describing the event.
+     * @param startDate event start date and time.
+     * @param endDate event end date and time.
+     */
     public Event(String description, String startDate, String endDate) {
         super(description);
         this.startDate = parseDate(startDate);
         this.endDate = parseDate(endDate);
     }
 
-    /** Creates an event from typed date-time values. */
+    /** Creates an event from typed date-time values.
+     *
+     * @param description text describing the event.
+     * @param startDate event start date and time.
+     * @param endDate event end date and time.
+     * @throws IllegalArgumentException if either date is null.
+     */
     public Event(String description, LocalDateTime startDate, LocalDateTime endDate) {
         super(description);
         if (startDate == null || endDate == null) {
@@ -32,18 +43,27 @@ public class Event extends Task {
         this.endDate = endDate;
     }
 
-    /** Returns the event start date for persistence. */
+    /** Returns the event start date for persistence.
+     *
+     * @return event start date and time.
+     */
     public LocalDateTime getStartDate() {
         return this.startDate;
     }
 
-    /** Returns the event end date for persistence. */
+    /** Returns the event end date for persistence.
+     *
+     * @return event end date and time.
+     */
     public LocalDateTime getEndDate() {
         return this.endDate;
     }
 
+    /** Returns the event formatted for the user interface.
+     *
+     * @return formatted event description.
+     */
     @Override
-    /** Returns the event formatted for the user interface. */
     public String toString() {
         return String.format("[E] %s (from: %s to: %s)", super.toString(),
                 this.startDate.format(DISPLAY_FORMAT), this.endDate.format(DISPLAY_FORMAT));

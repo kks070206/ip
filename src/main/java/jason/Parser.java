@@ -22,7 +22,15 @@ import jason.task.ToDo;
 
 /** Interprets user commands and creates tasks from add-task commands. */
 public class Parser {
-    /** Converts a complete user command into an executable command object. */
+    /** Converts a complete user command into an executable command object.
+     *
+     * @param description complete command entered by the user.
+     * @return executable command represented by the input.
+     * @throws InvalidCommandException if the command is not recognized or is incomplete.
+     * @throws InvalidToDoException if a todo command is malformed.
+     * @throws InvalidDeadlineException if a deadline command is malformed.
+     * @throws InvalidEventException if an event command is malformed.
+     */
     public Command parse(String description)
             throws InvalidCommandException, InvalidToDoException, InvalidDeadlineException,
             InvalidEventException {
@@ -54,7 +62,12 @@ public class Parser {
         return parts[1].trim();
     }
 
-    /** Returns the task index from a mark, unmark, or delete command. */
+    /** Returns the task index from a mark, unmark, or delete command.
+     *
+     * @param description mark, unmark, or delete command.
+     * @return one-based task index.
+     * @throws IllegalArgumentException if the command does not contain a numeric index.
+     */
     public int parseIndex(String description) {
         String[] words = description.split(" ");
         if (words.length < 2) {
@@ -67,7 +80,14 @@ public class Parser {
         }
     }
 
-    /** Creates the task represented by an add-task command. */
+    /** Creates the task represented by an add-task command.
+     *
+     * @param description complete add-task command.
+     * @return task represented by the command.
+     * @throws InvalidToDoException if the todo command is malformed.
+     * @throws InvalidDeadlineException if the deadline command is malformed.
+     * @throws InvalidEventException if the event command is malformed.
+     */
     public Task parseTask(String description)
             throws InvalidToDoException, InvalidDeadlineException, InvalidEventException {
         String[] parsedInput = description.split(" ");

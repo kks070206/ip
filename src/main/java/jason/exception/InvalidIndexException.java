@@ -7,8 +7,11 @@ public class InvalidIndexException extends Exception {
         super();
     }
 
+    /** Returns the invalid-index error message.
+     *
+     * @return invalid-index error message.
+     */
     @Override
-    /** Returns the invalid-index error message. */
     public String toString() {
         return "No such index in list.";
     }
