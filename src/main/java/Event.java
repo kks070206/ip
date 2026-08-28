@@ -8,6 +8,16 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    /** Returns the event start time for persistence. */
+    public String getStartTime() {
+        return this.startTime;
+    }
+
+    /** Returns the event end time for persistence. */
+    public String getEndTime() {
+        return this.endTime;
+    }
+
     @Override
     public String toString() {
         return String.format("[E] %s (from: %s to: %s)", super.toString(), this.startTime, this.endTime);
