@@ -17,7 +17,9 @@ public class UnmarkCommand extends Command {
     /** Marks the selected task incomplete, saves the list, and reports the change. */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
-        if (!tasks.isValidIndex(index)) throw new InvalidIndexException();
+        if (!tasks.isValidIndex(index)) {
+            throw new InvalidIndexException();
+        }
         tasks.get(index).markIncomplete();
         storage.save(tasks);
         ui.showMarkedIncomplete(tasks.get(index));

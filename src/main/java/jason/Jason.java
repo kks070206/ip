@@ -9,14 +9,15 @@ import jason.ui.Ui;
 
 /** Coordinates the user interface, command execution, task list, and storage. */
 public class Jason {
-    public static final String START_MESSAGE = "Hello! My name is Jason, inspired by JSON files used by software engineers.";
+    public static final String START_MESSAGE = "Hello! My name is Jason, inspired by JSON files "
+            + "used by software engineers.";
     public static final String HELP_MESSAGE = "How may I help you today?";
     public static final String END_MESSAGE = "Goodbye! Hope to see you again.";
     private static final String SAVE_FILE = "./data/jason.txt";
     private final Storage storage;
     private final Ui ui;
     private final Parser parser;
-    public TaskList taskList;
+    private TaskList taskList;
 
     /** Creates Jason with the default command-line UI. */
     public Jason() {
@@ -25,7 +26,9 @@ public class Jason {
 
     /** Creates Jason with the UI used by its application loop. */
     public Jason(Ui ui) {
-        if (ui == null) throw new IllegalArgumentException("The UI cannot be null.");
+        if (ui == null) {
+            throw new IllegalArgumentException("The UI cannot be null.");
+        }
         this.storage = new Storage(SAVE_FILE);
         this.taskList = new TaskList(storage.load());
         this.ui = ui;
@@ -34,7 +37,9 @@ public class Jason {
 
     /** Adds a task and persists the updated task list. */
     public void addTask(Task t) {
-        if (t == null) throw new IllegalArgumentException("A task cannot be null.");
+        if (t == null) {
+            throw new IllegalArgumentException("A task cannot be null.");
+        }
         this.taskList.add(t);
         saveTasks();
     }
@@ -49,23 +54,34 @@ public class Jason {
         return this.taskList.size();
     }
 
+    /** Returns the task list managed by Jason. */
+    public TaskList getTaskList() {
+        return this.taskList;
+    }
+
     /** Marks the task at a one-based index complete and persists the change. */
     public void markTaskAsComplete(int i) throws InvalidIndexException {
-        if (!taskList.isValidIndex(i)) throw new InvalidIndexException();
+        if (!taskList.isValidIndex(i)) {
+            throw new InvalidIndexException();
+        }
         this.getTask(i).markComplete();
         saveTasks();
     }
 
     /** Marks the task at a one-based index incomplete and persists the change. */
     public void markTaskAsIncomplete(int i) throws InvalidIndexException {
-        if (!taskList.isValidIndex(i)) throw new InvalidIndexException();
+        if (!taskList.isValidIndex(i)) {
+            throw new InvalidIndexException();
+        }
         this.getTask(i).markIncomplete();
         saveTasks();
     }
 
     /** Deletes the task at a one-based index and persists the change. */
     public void deleteTask(int i) throws InvalidIndexException{
-        if (!taskList.isValidIndex(i)) throw new InvalidIndexException();
+        if (!taskList.isValidIndex(i)) {
+            throw new InvalidIndexException();
+        }
         this.taskList.remove(i);
         saveTasks();
     }

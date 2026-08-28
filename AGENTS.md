@@ -44,3 +44,7 @@ After every code update:
    ```bash
    python3 .codex/skills/test-ui/scripts/run_ui_tests.py test/ui-test-plan.md
    ```
+
+## Java coding standard
+
+All Java code in this project must follow the project-specific `seedu-java-coding-standard` skill, based on the SE-EDU basic and intermediate Java coding conventions. Invoke that skill when reviewing or updating Java code, and apply its rules to new and modified code.

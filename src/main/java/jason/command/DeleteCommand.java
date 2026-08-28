@@ -18,7 +18,9 @@ public class DeleteCommand extends Command {
     /** Deletes the selected task, saves the list, and reports the deletion. */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
-        if (!tasks.isValidIndex(index)) throw new InvalidIndexException();
+        if (!tasks.isValidIndex(index)) {
+            throw new InvalidIndexException();
+        }
         Task deletedTask = tasks.get(index);
         tasks.remove(index);
         storage.save(tasks);

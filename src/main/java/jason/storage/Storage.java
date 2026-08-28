@@ -34,7 +34,9 @@ public class Storage {
         try {
             for (String line : Files.readAllLines(filePath)) {
                 Task task = fromSaveFormat(line);
-                if (task != null) tasks.add(task);
+                if (task != null) {
+                    tasks.add(task);
+                }
             }
         } catch (NoSuchFileException e) {
             // No file is expected on the first run.
@@ -46,9 +48,13 @@ public class Storage {
 
     /** Saves the current task list, creating its parent directory when needed. */
     public void save(TaskList tasks) {
-        if (tasks == null) throw new IllegalArgumentException("The task list cannot be null.");
+        if (tasks == null) {
+            throw new IllegalArgumentException("The task list cannot be null.");
+        }
         try {
-            if (filePath.getParent() != null) Files.createDirectories(filePath.getParent());
+            if (filePath.getParent() != null) {
+                Files.createDirectories(filePath.getParent());
+            }
             try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
                 for (int i = 1; i <= tasks.size(); i++) {
                     writer.write(toSaveFormat(tasks.get(i)));
@@ -76,23 +82,33 @@ public class Storage {
 
     /** Parses one saved line, returning null when the record is malformed. */
     private Task fromSaveFormat(String line) {
-        if (line == null || line.isBlank()) return null;
+        if (line == null || line.isBlank()) {
+            return null;
+        }
         String[] fields = line.split("\\s*\\|\\s*", -1);
-        if (fields.length < 3) return null;
+        if (fields.length < 3) {
+            return null;
+        }
 
         String type = fields[0].trim();
         String status = fields[1].trim();
         String description = fields[2].trim();
-        if (description.isEmpty() || !(status.equals("0") || status.equals("1"))) return null;
+        if (description.isEmpty() || !(status.equals("0") || status.equals("1"))) {
+            return null;
+        }
 
         Task task;
         switch (type) {
             case "T" -> {
-                if (fields.length != 3) return null;
+                if (fields.length != 3) {
+                    return null;
+                }
                 task = new ToDo(description);
             }
             case "D" -> {
-                if (fields.length != 4 || fields[3].trim().isEmpty()) return null;
+                if (fields.length != 4 || fields[3].trim().isEmpty()) {
+                    return null;
+                }
                 try {
                     task = new Deadline(description, fields[3].trim());
                 } catch (DateTimeParseException e) {
@@ -100,7 +116,10 @@ public class Storage {
                 }
             }
             case "E" -> {
-                if (fields.length != 5 || fields[3].trim().isEmpty() || fields[4].trim().isEmpty()) return null;
+                if (fields.length != 5 || fields[3].trim().isEmpty()
+                        || fields[4].trim().isEmpty()) {
+                    return null;
+                }
                 try {
                     task = new Event(description, parseDateTime(fields[3].trim()),
                             parseDateTime(fields[4].trim()));
@@ -112,7 +131,9 @@ public class Storage {
                 return null;
             }
         }
-        if (status.equals("1")) task.markComplete();
+        if (status.equals("1")) {
+            task.markComplete();
+        }
         return task;
     }
 

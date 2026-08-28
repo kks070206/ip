@@ -23,7 +23,9 @@ public class Deadline extends Task {
     /** Creates a deadline from a typed date-time value. */
     public Deadline(String description, LocalDateTime deadline) {
         super(description);
-        if (deadline == null) throw new IllegalArgumentException("A deadline date cannot be null.");
+        if (deadline == null) {
+            throw new IllegalArgumentException("A deadline date cannot be null.");
+        }
         this.deadline = deadline;
     }
 

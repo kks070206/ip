@@ -17,7 +17,9 @@ public class MarkCommand extends Command {
     /** Marks the selected task complete, saves the list, and reports the change. */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
-        if (!tasks.isValidIndex(index)) throw new InvalidIndexException();
+        if (!tasks.isValidIndex(index)) {
+            throw new InvalidIndexException();
+        }
         tasks.get(index).markComplete();
         storage.save(tasks);
         ui.showMarkedComplete(tasks.get(index));
