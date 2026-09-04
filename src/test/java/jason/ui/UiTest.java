@@ -7,6 +7,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
@@ -74,5 +75,17 @@ class UiTest {
         assertTrue(consoleOutput.contains("No matching tasks found."));
         assertTrue(consoleOutput.contains("Invalid command."));
         assertTrue(consoleOutput.contains("Goodbye! Hope to see you again."));
+    }
+
+    @Test
+    void outputConsumer_receivesMessagesWithoutWritingToConsole() {
+        List<String> messages = new ArrayList<>();
+        Ui ui = new Ui(messages::add);
+
+        ui.showLine();
+        ui.showGoodbye();
+
+        assertEquals(List.of("_______", "Goodbye! Hope to see you again."), messages);
+        assertEquals("", output.toString());
     }
 }

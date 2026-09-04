@@ -109,6 +109,42 @@ class JasonTest {
     }
 
     @Test
+    void getResponse_invalidCommand_returnsErrorMessage() {
+        Jason jason = new Jason();
+
+        String response = jason.getResponse("unknown command");
+
+        assertTrue(response.contains("Invalid command."));
+        assertEquals(0, jason.size());
+    }
+
+    @Test
+    void getResponse_listCommand_returnsCurrentTasksWithoutChangingList() {
+        Jason jason = new Jason();
+        jason.addTask(new ToDo("read book"));
+
+        String response = jason.getResponse("list");
+
+        assertTrue(response.contains("1. [T] [ ] read book"));
+        assertEquals(1, jason.size());
+        assertEquals("ListCommand", jason.getLastCommandType());
+    }
+
+    @Test
+    void getResponse_findCommand_returnsMatchingTasksWithoutChangingList() {
+        Jason jason = new Jason();
+        jason.addTask(new ToDo("read book"));
+        jason.addTask(new ToDo("go jogging"));
+
+        String response = jason.getResponse("find book");
+
+        assertTrue(response.contains("1. [T] [ ] read book"));
+        assertFalse(response.contains("go jogging"));
+        assertEquals(2, jason.size());
+        assertEquals("FindCommand", jason.getLastCommandType());
+    }
+
+    @Test
     void run_exitCommand_showsWelcomeAndGoodbye() {
         System.setIn(new ByteArrayInputStream("bye\n".getBytes(StandardCharsets.UTF_8)));
         ByteArrayOutputStream output = new ByteArrayOutputStream();
