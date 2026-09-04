@@ -1,0 +1,35 @@
+.dialog-box {
+    -fx-padding: 8px 10px;
+}
+
+.dialog-text {
+    -fx-background-color: white;
+    -fx-background-radius: 14px 14px 14px 2px;
+    -fx-border-color: #d7e0eb;
+    -fx-border-radius: 14px 14px 14px 2px;
+    -fx-padding: 10px 14px;
+    -fx-text-fill: #233044;
+}
+
+.user-dialog .dialog-text {
+    -fx-background-color: #dbe8ff;
+    -fx-border-color: #b8cdf5;
+    -fx-background-radius: 14px 14px 2px 14px;
+    -fx-border-radius: 14px 14px 2px 14px;
+}
+
+.add-command .dialog-text {
+    -fx-background-color: #fff3bf;
+}
+
+.mark-command .dialog-text {
+    -fx-background-color: #d9f7df;
+}
+
+.delete-command .dialog-text {
+    -fx-background-color: #ffe0e0;
+}
+
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(35, 48, 68, 0.2), 5, 0.3, 1, 2);
+}
