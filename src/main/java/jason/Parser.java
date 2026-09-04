@@ -3,6 +3,7 @@ package jason;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
+
 import jason.command.AddCommand;
 import jason.command.Command;
 import jason.command.DeleteCommand;
@@ -20,9 +21,12 @@ import jason.task.Event;
 import jason.task.Task;
 import jason.task.ToDo;
 
-/** Interprets user commands and creates tasks from add-task commands. */
+/**
+ * Interprets user commands and creates tasks from add-task commands.
+ */
 public class Parser {
-    /** Converts a complete user command into an executable command object.
+    /**
+     * Converts a complete user command into an executable command object.
      *
      * @param description complete command entered by the user.
      * @return executable command represented by the input.
@@ -53,7 +57,9 @@ public class Parser {
         };
     }
 
-    /** Returns the search keyword from a find command. */
+    /**
+     * Returns the search keyword from a find command.
+     */
     private String parseKeyword(String description) throws InvalidCommandException {
         String[] parts = description.trim().split("\\s+", 2);
         if (parts.length < 2 || parts[1].isBlank()) {
@@ -62,7 +68,8 @@ public class Parser {
         return parts[1].trim();
     }
 
-    /** Returns the task index from a mark, unmark, or delete command.
+    /**
+     * Returns the task index from a mark, unmark, or delete command.
      *
      * @param description mark, unmark, or delete command.
      * @return one-based task index.
@@ -80,7 +87,8 @@ public class Parser {
         }
     }
 
-    /** Creates the task represented by an add-task command.
+    /**
+     * Creates the task represented by an add-task command.
      *
      * @param description complete add-task command.
      * @return task represented by the command.

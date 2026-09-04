@@ -1,12 +1,12 @@
 package jason.task;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
 
 /** Tests deadline date-time parsing and display behavior. */
 class DeadlineTest {
@@ -27,7 +27,7 @@ class DeadlineTest {
 
     @Test
     void constructor_invalidDate_throwsException() {
-        assertThrows(DateTimeParseException.class,
-                () -> new Deadline("submit report", "not-a-date"));
+        assertThrows(DateTimeParseException.class, () ->
+                new Deadline("submit report", "not-a-date"));
     }
 }

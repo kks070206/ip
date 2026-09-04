@@ -1,8 +1,11 @@
 package jason.task;
 
-/** Represents a simple task without a deadline or event time. */
+/**
+ * Represents a simple task without a deadline or event time.
+ */
 public class ToDo extends Task {
-    /** Creates an incomplete todo task.
+    /**
+     * Creates an incomplete todo task.
      *
      * @param description text describing the task.
      */
@@ -10,7 +13,8 @@ public class ToDo extends Task {
         super(description);
     }
 
-    /** Returns the todo type marker followed by the task display.
+    /**
+     * Returns the todo type marker followed by the task display.
      *
      * @return formatted todo description.
      */

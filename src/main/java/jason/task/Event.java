@@ -6,7 +6,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
-/** Represents a task occurring between two date-time values. */
+/**
+ * Represents a task occurring between two date-time values.
+ */
 public class Event extends Task {
     private static final DateTimeFormatter DISPLAY_FORMAT =
             DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", Locale.ENGLISH);
@@ -15,7 +17,8 @@ public class Event extends Task {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    /** Creates an event from ISO date-time or date-only strings.
+    /**
+     * Creates an event from ISO date-time or date-only strings.
      *
      * @param description text describing the event.
      * @param startDate event start date and time.
@@ -27,7 +30,8 @@ public class Event extends Task {
         this.endDate = parseDate(endDate);
     }
 
-    /** Creates an event from typed date-time values.
+    /**
+     * Creates an event from typed date-time values.
      *
      * @param description text describing the event.
      * @param startDate event start date and time.
@@ -43,7 +47,8 @@ public class Event extends Task {
         this.endDate = endDate;
     }
 
-    /** Returns the event start date for persistence.
+    /**
+     * Returns the event start date for persistence.
      *
      * @return event start date and time.
      */
@@ -51,7 +56,8 @@ public class Event extends Task {
         return this.startDate;
     }
 
-    /** Returns the event end date for persistence.
+    /**
+     * Returns the event end date for persistence.
      *
      * @return event end date and time.
      */
@@ -59,7 +65,8 @@ public class Event extends Task {
         return this.endDate;
     }
 
-    /** Returns the event formatted for the user interface.
+    /**
+     * Returns the event formatted for the user interface.
      *
      * @return formatted event description.
      */
@@ -69,7 +76,9 @@ public class Event extends Task {
                 this.startDate.format(DISPLAY_FORMAT), this.endDate.format(DISPLAY_FORMAT));
     }
 
-    /** Parses an ISO date-time, the project input format, or a date-only value. */
+    /**
+     * Parses an ISO date-time, the project input format, or a date-only value.
+     */
     private static LocalDateTime parseDate(String date) {
         if (date == null || date.isBlank()) {
             throw new DateTimeParseException("Date cannot be empty", date == null ? "null" : date, 0);

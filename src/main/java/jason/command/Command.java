@@ -8,9 +8,12 @@ import jason.storage.Storage;
 import jason.task.TaskList;
 import jason.ui.Ui;
 
-/** A parsed user command that can be executed by the application. */
+/**
+ * A parsed user command that can be executed by the application.
+ */
 public abstract class Command {
-    /** Executes this command against the application state.
+    /**
+     * Executes this command against the application state.
      *
      * @param tasks task list affected by the command.
      * @param ui user interface used by the command.
@@ -24,7 +27,8 @@ public abstract class Command {
             throws InvalidToDoException, InvalidDeadlineException, InvalidEventException,
             InvalidIndexException;
 
-    /** Returns whether this command ends the application.
+    /**
+     * Returns whether this command ends the application.
      *
      * @return true if this command exits the application; otherwise false.
      */

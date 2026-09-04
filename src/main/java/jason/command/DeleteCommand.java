@@ -6,11 +6,14 @@ import jason.task.Task;
 import jason.task.TaskList;
 import jason.ui.Ui;
 
-/** Deletes one task and persists the updated list. */
+/**
+ * Deletes one task and persists the updated list.
+ */
 public class DeleteCommand extends Command {
     private final int index;
 
-    /** Creates a delete command for a one-based task index.
+    /**
+     * Creates a delete command for a one-based task index.
      *
      * @param index one-based index of the task to delete.
      */
@@ -18,7 +21,8 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
-    /** Deletes the selected task, saves the list, and reports the deletion.
+    /**
+     * Deletes the selected task, saves the list, and reports the deletion.
      *
      * @param tasks task list to update.
      * @param ui user interface used to report the result.

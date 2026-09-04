@@ -5,11 +5,14 @@ import jason.task.Task;
 import jason.task.TaskList;
 import jason.ui.Ui;
 
-/** Adds a task to the task list and persists the updated list. */
+/**
+ * Adds a task to the task list and persists the updated list.
+ */
 public class AddCommand extends Command {
     private final Task task;
 
-    /** Creates an add command for a task.
+    /**
+     * Creates an add command for a task.
      *
      * @param task task to add when the command executes.
      */
@@ -17,7 +20,8 @@ public class AddCommand extends Command {
         this.task = task;
     }
 
-    /** Adds the task, saves the list, and reports the addition.
+    /**
+     * Adds the task, saves the list, and reports the addition.
      *
      * @param tasks task list to update.
      * @param ui user interface used to report the result.

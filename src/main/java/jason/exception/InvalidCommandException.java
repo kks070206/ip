@@ -1,13 +1,18 @@
 package jason.exception;
 
-/** Indicates that a user command is not recognized. */
+/**
+ * Indicates that a user command is not recognized.
+ */
 public class InvalidCommandException extends Exception {
-    /** Creates an invalid-command exception. */
+    /**
+     * Creates an invalid-command exception.
+     */
     public InvalidCommandException() {
         super();
     }
 
-    /** Returns guidance for correcting the command.
+    /**
+     * Returns guidance for correcting the command.
      *
      * @return invalid-command guidance.
      */

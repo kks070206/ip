@@ -4,11 +4,14 @@ import jason.storage.Storage;
 import jason.task.TaskList;
 import jason.ui.Ui;
 
-/** Finds and displays tasks whose descriptions contain a keyword. */
+/**
+ * Finds and displays tasks whose descriptions contain a keyword.
+ */
 public class FindCommand extends Command {
     private final String keyword;
 
-    /** Creates a find command for the supplied keyword.
+    /**
+     * Creates a find command for the supplied keyword.
      *
      * @param keyword text to search for.
      * @throws IllegalArgumentException if the keyword is null or blank.
@@ -20,7 +23,8 @@ public class FindCommand extends Command {
         this.keyword = keyword.trim();
     }
 
-    /** Searches the task list and displays the matching tasks.
+    /**
+     * Searches the task list and displays the matching tasks.
      *
      * @param tasks task list to search.
      * @param ui user interface used to display the results.

@@ -1,7 +1,14 @@
 package jason;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
+
 import jason.command.AddCommand;
-import jason.command.Command;
 import jason.command.DeleteCommand;
 import jason.command.ExitCommand;
 import jason.command.FindCommand;
@@ -16,13 +23,6 @@ import jason.task.Deadline;
 import jason.task.Event;
 import jason.task.Task;
 import jason.task.ToDo;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /** Tests command interpretation and task construction in {@link Parser}. */
 class ParserTest {
@@ -89,9 +89,9 @@ class ParserTest {
     @Test
     void parseTask_malformedTaskCommand_throwsSpecificException() {
         assertThrows(InvalidToDoException.class, () -> parser.parseTask("todo"));
-        assertThrows(InvalidDeadlineException.class,
-                () -> parser.parseTask("deadline submit report /by not-a-date"));
-        assertThrows(InvalidEventException.class,
-                () -> parser.parseTask("event planning /from 2020-01-02 14:00"));
+        assertThrows(InvalidDeadlineException.class, () ->
+                parser.parseTask("deadline submit report /by not-a-date"));
+        assertThrows(InvalidEventException.class, () ->
+                parser.parseTask("event planning /from 2020-01-02 14:00"));
     }
 }

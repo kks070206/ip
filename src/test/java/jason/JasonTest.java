@@ -1,10 +1,9 @@
 package jason;
 
-import jason.exception.InvalidIndexException;
-import jason.task.ToDo;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -15,10 +14,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import jason.exception.InvalidIndexException;
+import jason.task.ToDo;
 
 /** Tests Jason's task coordination and application lifecycle methods. */
 class JasonTest {
@@ -31,7 +32,9 @@ class JasonTest {
     @BeforeEach
     void isolateSaveFile() throws IOException {
         saveFileExisted = Files.exists(SAVE_FILE);
-        if (saveFileExisted) originalSaveFile = Files.readAllBytes(SAVE_FILE);
+        if (saveFileExisted) {
+            originalSaveFile = Files.readAllBytes(SAVE_FILE);
+        }
         Files.createDirectories(SAVE_FILE.getParent());
         Files.writeString(SAVE_FILE, "");
     }

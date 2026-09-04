@@ -1,8 +1,11 @@
 package jason;
 
-/** Starts the Jason command-line application. */
+/**
+ * Starts the Jason command-line application.
+ */
 public class Main {
-    /** Creates Jason and starts its application loop.
+    /**
+     * Creates Jason and starts its application loop.
      *
      * @param args command-line arguments, which are currently unused.
      */

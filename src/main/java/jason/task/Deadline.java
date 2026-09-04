@@ -6,7 +6,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
-/** Represents a task that must be completed by a date and time. */
+/**
+ * Represents a task that must be completed by a date and time.
+ */
 public class Deadline extends Task {
     private static final DateTimeFormatter DISPLAY_FORMAT =
             DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", Locale.ENGLISH);
@@ -14,7 +16,8 @@ public class Deadline extends Task {
             DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm", Locale.ENGLISH);
     private LocalDateTime deadline;
 
-    /** Creates a deadline from an ISO date-time or date-only string.
+    /**
+     * Creates a deadline from an ISO date-time or date-only string.
      *
      * @param description text describing the task.
      * @param deadline deadline date and time.
@@ -24,7 +27,8 @@ public class Deadline extends Task {
         this.deadline = parseDate(deadline);
     }
 
-    /** Creates a deadline from a typed date-time value.
+    /**
+     * Creates a deadline from a typed date-time value.
      *
      * @param description text describing the task.
      * @param deadline deadline date and time.
@@ -38,7 +42,8 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
-    /** Returns the deadline for persistence.
+    /**
+     * Returns the deadline for persistence.
      *
      * @return deadline date and time.
      */
@@ -46,7 +51,8 @@ public class Deadline extends Task {
         return this.deadline;
     }
 
-    /** Returns the deadline task formatted for the user interface.
+    /**
+     * Returns the deadline task formatted for the user interface.
      *
      * @return formatted deadline description.
      */
@@ -56,7 +62,9 @@ public class Deadline extends Task {
                 this.deadline.format(DISPLAY_FORMAT));
     }
 
-    /** Parses an ISO date-time, the project input format, or a date-only value. */
+    /**
+     * Parses an ISO date-time, the project input format, or a date-only value.
+     */
     private static LocalDateTime parseDate(String date) {
         if (date == null || date.isBlank()) {
             throw new DateTimeParseException("Date cannot be empty", date == null ? "null" : date, 0);

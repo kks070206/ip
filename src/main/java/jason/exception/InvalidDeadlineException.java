@@ -1,13 +1,18 @@
 package jason.exception;
 
-/** Indicates that a deadline command has invalid syntax or date-time data. */
+/**
+ * Indicates that a deadline command has invalid syntax or date-time data.
+ */
 public class InvalidDeadlineException extends InvalidCommandException {
-    /** Creates an invalid-deadline exception. */
+    /**
+     * Creates an invalid-deadline exception.
+     */
     public InvalidDeadlineException() {
         super();
     }
 
-    /** Returns the expected deadline command format.
+    /**
+     * Returns the expected deadline command format.
      *
      * @return expected deadline command format.
      */

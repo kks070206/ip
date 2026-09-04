@@ -1,18 +1,19 @@
 package jason.command;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.nio.file.Path;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
 import jason.exception.InvalidIndexException;
 import jason.storage.Storage;
 import jason.task.TaskList;
 import jason.task.ToDo;
 import jason.ui.Ui;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
-import java.nio.file.Path;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** Tests the state changes and exit behavior of executable commands. */
 class CommandTest {
@@ -62,12 +63,12 @@ class CommandTest {
         TaskList tasks = new TaskList();
         Storage storage = storage();
 
-        assertThrows(InvalidIndexException.class,
-                () -> new MarkCommand(1).execute(tasks, new Ui(), storage));
-        assertThrows(InvalidIndexException.class,
-                () -> new UnmarkCommand(1).execute(tasks, new Ui(), storage));
-        assertThrows(InvalidIndexException.class,
-                () -> new DeleteCommand(1).execute(tasks, new Ui(), storage));
+        assertThrows(InvalidIndexException.class, () ->
+                new MarkCommand(1).execute(tasks, new Ui(), storage));
+        assertThrows(InvalidIndexException.class, () ->
+                new UnmarkCommand(1).execute(tasks, new Ui(), storage));
+        assertThrows(InvalidIndexException.class, () ->
+                new DeleteCommand(1).execute(tasks, new Ui(), storage));
     }
 
     @Test

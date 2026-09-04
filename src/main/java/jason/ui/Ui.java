@@ -1,7 +1,8 @@
 package jason.ui;
 
-import java.util.Scanner;
 import java.util.List;
+import java.util.Scanner;
+
 import jason.Jason;
 import jason.task.Task;
 import jason.task.TaskList;
@@ -12,18 +13,23 @@ import jason.task.TaskList;
 public class Ui {
     private final Scanner scanner;
 
-    /** Creates a UI connected to standard input and output. */
+    /**
+     * Creates a UI connected to standard input and output.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
-    /** Prints the chatbot's welcome messages. */
+    /**
+     * Prints the chatbot's welcome messages.
+     */
     public void showWelcome() {
         System.out.println(Jason.START_MESSAGE);
         System.out.println(Jason.HELP_MESSAGE);
     }
 
-    /** Reads the next command entered by the user.
+    /**
+     * Reads the next command entered by the user.
      *
      * @return next command entered by the user.
      */
@@ -31,17 +37,22 @@ public class Ui {
         return scanner.nextLine();
     }
 
-    /** Prints the chatbot's goodbye message. */
+    /**
+     * Prints the chatbot's goodbye message.
+     */
     public void showGoodbye() {
         System.out.println(Jason.END_MESSAGE);
     }
 
-    /** Prints the divider between command-line interactions. */
+    /**
+     * Prints the divider between command-line interactions.
+     */
     public void showLine() {
         System.out.println("_______");
     }
 
-    /** Prints an error message.
+    /**
+     * Prints an error message.
      *
      * @param exception exception whose message should be shown.
      */
@@ -49,7 +60,8 @@ public class Ui {
         System.out.println(exception);
     }
 
-    /** Displays the current task list.
+    /**
+     * Displays the current task list.
      *
      * @param taskList task list to display.
      */
@@ -57,7 +69,8 @@ public class Ui {
         System.out.println(taskList);
     }
 
-    /** Displays tasks matching a search keyword.
+    /**
+     * Displays tasks matching a search keyword.
      *
      * @param matchingTasks tasks that matched the user's search.
      */
@@ -73,7 +86,8 @@ public class Ui {
         }
     }
 
-    /** Displays a newly added task.
+    /**
+     * Displays a newly added task.
      *
      * @param task task that was added.
      */
@@ -81,7 +95,8 @@ public class Ui {
         System.out.println("Added: " + task);
     }
 
-    /** Displays a completed task confirmation.
+    /**
+     * Displays a completed task confirmation.
      *
      * @param task task that was marked complete.
      */
@@ -90,7 +105,8 @@ public class Ui {
         System.out.println(task);
     }
 
-    /** Displays an incomplete task confirmation.
+    /**
+     * Displays an incomplete task confirmation.
      *
      * @param task task that was marked incomplete.
      */
@@ -99,7 +115,8 @@ public class Ui {
         System.out.println(task);
     }
 
-    /** Displays a task deletion confirmation and the remaining task count.
+    /**
+     * Displays a task deletion confirmation and the remaining task count.
      *
      * @param task task that was deleted.
      * @param remainingTasks number of tasks left after deletion.

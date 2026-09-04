@@ -10,17 +10,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+
 import jason.task.Deadline;
 import jason.task.Event;
 import jason.task.Task;
 import jason.task.TaskList;
 import jason.task.ToDo;
 
-/** Handles loading tasks from and saving tasks to a file. */
+/**
+ * Handles loading tasks from and saving tasks to a file.
+ */
 public class Storage {
     private final Path filePath;
 
-    /** Creates storage backed by the supplied relative or absolute path.
+    /**
+     * Creates storage backed by the supplied relative or absolute path.
      *
      * @param filePath relative or absolute path of the save file.
      * @throws IllegalArgumentException if the path is null or blank.
@@ -32,7 +36,8 @@ public class Storage {
         this.filePath = Path.of(filePath);
     }
 
-    /** Loads all valid tasks, returning an empty list when the file does not exist.
+    /**
+     * Loads all valid tasks, returning an empty list when the file does not exist.
      *
      * @return valid tasks read from the save file.
      */
@@ -53,7 +58,8 @@ public class Storage {
         return tasks;
     }
 
-    /** Saves the current task list, creating its parent directory when needed.
+    /**
+     * Saves the current task list, creating its parent directory when needed.
      *
      * @param tasks task list to save.
      * @throws IllegalArgumentException if the task list is null.
@@ -77,7 +83,9 @@ public class Storage {
         }
     }
 
-    /** Converts a task into the line format used by the save file. */
+    /**
+     * Converts a task into the line format used by the save file.
+     */
     private String toSaveFormat(Task task) {
         String status = task.isCompleted() ? "1" : "0";
         if (task instanceof Deadline deadline) {
@@ -91,7 +99,9 @@ public class Storage {
         return String.format("T | %s | %s", status, task.getDescription());
     }
 
-    /** Parses one saved line, returning null when the record is malformed. */
+    /**
+     * Parses one saved line, returning null when the record is malformed.
+     */
     private Task fromSaveFormat(String line) {
         if (line == null || line.isBlank()) {
             return null;
@@ -148,7 +158,9 @@ public class Storage {
         return task;
     }
 
-    /** Parses a saved date-time, accepting older date-only records as midnight. */
+    /**
+     * Parses a saved date-time, accepting older date-only records as midnight.
+     */
     private LocalDateTime parseDateTime(String value) {
         try {
             return LocalDateTime.parse(value);
@@ -157,7 +169,9 @@ public class Storage {
         }
     }
 
-    /** Reports an I/O or permission problem without terminating the application. */
+    /**
+     * Reports an I/O or permission problem without terminating the application.
+     */
     private void reportError(String operation, Exception exception) {
         System.err.printf("Warning: unable to %s tasks at %s (%s)%n",
                 operation, filePath, exception.getMessage());

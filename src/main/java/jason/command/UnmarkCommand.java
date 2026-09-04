@@ -5,11 +5,14 @@ import jason.storage.Storage;
 import jason.task.TaskList;
 import jason.ui.Ui;
 
-/** Marks one task as incomplete and persists the updated list. */
+/**
+ * Marks one task as incomplete and persists the updated list.
+ */
 public class UnmarkCommand extends Command {
     private final int index;
 
-    /** Creates an unmark command for a one-based task index.
+    /**
+     * Creates an unmark command for a one-based task index.
      *
      * @param index one-based index of the task to mark incomplete.
      */
@@ -17,7 +20,8 @@ public class UnmarkCommand extends Command {
         this.index = index;
     }
 
-    /** Marks the selected task incomplete, saves the list, and reports the change.
+    /**
+     * Marks the selected task incomplete, saves the list, and reports the change.
      *
      * @param tasks task list to update.
      * @param ui user interface used to report the result.

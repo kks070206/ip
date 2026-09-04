@@ -1,12 +1,12 @@
 package jason.task;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
 
 /** Tests event date-time parsing and display behavior. */
 class EventTest {
@@ -22,7 +22,7 @@ class EventTest {
 
     @Test
     void constructor_invalidDate_throwsException() {
-        assertThrows(DateTimeParseException.class,
-                () -> new Event("planning", "2020-01-02 14:00", "not-a-date"));
+        assertThrows(DateTimeParseException.class, () ->
+                new Event("planning", "2020-01-02 14:00", "not-a-date"));
     }
 }

@@ -7,7 +7,9 @@ import jason.task.Task;
 import jason.task.TaskList;
 import jason.ui.Ui;
 
-/** Coordinates the user interface, command execution, task list, and storage. */
+/**
+ * Coordinates the user interface, command execution, task list, and storage.
+ */
 public class Jason {
     public static final String START_MESSAGE = "Hello! My name is Jason, inspired by JSON files "
             + "used by software engineers.";
@@ -19,12 +21,15 @@ public class Jason {
     private final Parser parser;
     private TaskList taskList;
 
-    /** Creates Jason with the default command-line UI. */
+    /**
+     * Creates Jason with the default command-line UI.
+     */
     public Jason() {
         this(new Ui());
     }
 
-    /** Creates Jason with the UI used by its application loop.
+    /**
+     * Creates Jason with the UI used by its application loop.
      *
      * @param ui user interface used to interact with the user.
      */
@@ -38,7 +43,8 @@ public class Jason {
         this.parser = new Parser();
     }
 
-    /** Adds a task and persists the updated task list.
+    /**
+     * Adds a task and persists the updated task list.
      *
      * @param t task to add.
      * @throws IllegalArgumentException if the task is null.
@@ -51,7 +57,8 @@ public class Jason {
         saveTasks();
     }
 
-    /** Returns the task at a one-based list index.
+    /**
+     * Returns the task at a one-based list index.
      *
      * @param i one-based index of the task.
      * @return task at the specified index.
@@ -60,7 +67,8 @@ public class Jason {
         return this.taskList.get(i);
     }
 
-    /** Returns the number of tasks currently stored.
+    /**
+     * Returns the number of tasks currently stored.
      *
      * @return number of stored tasks.
      */
@@ -68,7 +76,8 @@ public class Jason {
         return this.taskList.size();
     }
 
-    /** Returns the task list managed by Jason.
+    /**
+     * Returns the task list managed by Jason.
      *
      * @return Jason's task list.
      */
@@ -76,7 +85,8 @@ public class Jason {
         return this.taskList;
     }
 
-    /** Marks the task at a one-based index complete and persists the change.
+    /**
+     * Marks the task at a one-based index complete and persists the change.
      *
      * @param i one-based index of the task.
      * @throws InvalidIndexException if the index does not identify a task.
@@ -89,7 +99,8 @@ public class Jason {
         saveTasks();
     }
 
-    /** Marks the task at a one-based index incomplete and persists the change.
+    /**
+     * Marks the task at a one-based index incomplete and persists the change.
      *
      * @param i one-based index of the task.
      * @throws InvalidIndexException if the index does not identify a task.
@@ -102,12 +113,13 @@ public class Jason {
         saveTasks();
     }
 
-    /** Deletes the task at a one-based index and persists the change.
+    /**
+     * Deletes the task at a one-based index and persists the change.
      *
      * @param i one-based index of the task.
      * @throws InvalidIndexException if the index does not identify a task.
      */
-    public void deleteTask(int i) throws InvalidIndexException{
+    public void deleteTask(int i) throws InvalidIndexException {
         if (!taskList.isValidIndex(i)) {
             throw new InvalidIndexException();
         }
@@ -123,7 +135,9 @@ public class Jason {
         storage.save(taskList);
     }
 
-    /** Runs the command-line application until the user enters {@code bye}. */
+    /**
+     * Runs the command-line application until the user enters {@code bye}.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

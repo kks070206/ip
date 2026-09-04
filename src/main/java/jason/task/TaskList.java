@@ -1,19 +1,24 @@
 package jason.task;
 
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.List;
+import java.util.Locale;
 
-/** Stores tasks and provides one-based list operations for the application. */
+/**
+ * Stores tasks and provides one-based list operations for the application.
+ */
 public class TaskList {
     private List<Task> taskList;
 
-    /** Creates an empty task list. */
+    /**
+     * Creates an empty task list.
+     */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
-    /** Creates a task list containing a copy of the supplied tasks.
+    /**
+     * Creates a task list containing a copy of the supplied tasks.
      *
      * @param tasks tasks to copy into the list.
      */
@@ -21,7 +26,8 @@ public class TaskList {
         this.taskList = new ArrayList<>(tasks);
     }
 
-    /** Appends a task to the list.
+    /**
+     * Appends a task to the list.
      *
      * @param t task to append.
      */
@@ -29,7 +35,8 @@ public class TaskList {
         this.taskList.add(t);
     }
 
-    /** Returns the task at a one-based index.
+    /**
+     * Returns the task at a one-based index.
      *
      * @param i one-based task index.
      * @return task at the specified index.
@@ -38,7 +45,8 @@ public class TaskList {
         return this.taskList.get(i - 1);
     }
 
-    /** Returns the number of tasks in the list.
+    /**
+     * Returns the number of tasks in the list.
      *
      * @return number of tasks.
      */
@@ -46,7 +54,8 @@ public class TaskList {
         return this.taskList.size();
     }
 
-    /** Removes the task at a one-based index.
+    /**
+     * Removes the task at a one-based index.
      *
      * @param i one-based task index.
      */
@@ -54,7 +63,8 @@ public class TaskList {
         this.taskList.remove(get(i));
     }
 
-    /** Returns whether a one-based index identifies a task in this list.
+    /**
+     * Returns whether a one-based index identifies a task in this list.
      *
      * @param i one-based task index.
      * @return true if the index identifies a task; otherwise false.
@@ -63,13 +73,16 @@ public class TaskList {
         return i <= this.size() && i > 0;
     }
 
-    /** Returns tasks whose descriptions contain the keyword, ignoring letter case.
+    /**
+     * Returns tasks whose descriptions contain the keyword, ignoring letter case.
      *
      * @param keyword text to search for.
      * @return matching tasks in their original list order.
      */
     public List<Task> find(String keyword) {
-        if (keyword == null || keyword.isBlank()) return List.of();
+        if (keyword == null || keyword.isBlank()) {
+            return List.of();
+        }
 
         String searchTerm = keyword.trim().toLowerCase(Locale.ROOT);
         return taskList.stream()
@@ -77,7 +90,8 @@ public class TaskList {
                 .toList();
     }
 
-    /** Returns a numbered, human-readable representation of the task list.
+    /**
+     * Returns a numbered, human-readable representation of the task list.
      *
      * @return formatted task list, or an empty-list message.
      */
