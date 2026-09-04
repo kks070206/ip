@@ -11,6 +11,10 @@ import javafx.stage.Stage;
 
 /** Provides the JavaFX application entry point for Jason's optional GUI. */
 public class GuiMain extends Application {
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+
     /**
      * Displays the initial JavaFX window and its chatbot layout.
      *
@@ -18,11 +22,11 @@ public class GuiMain extends Application {
      */
     @Override
     public void start(Stage stage) {
-        ScrollPane scrollPane = new ScrollPane();
-        VBox dialogContainer = new VBox();
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
 
-        TextField userInput = new TextField();
+        userInput = new TextField();
         Button sendButton = new Button("Send");
 
         AnchorPane mainLayout = new AnchorPane();
@@ -41,10 +45,27 @@ public class GuiMain extends Application {
         AnchorPane.setRightAnchor(sendButton, 1.0);
 
         dialogContainer.getChildren().add(DialogBox.getJasonDialog("How may I help you today?"));
+        sendButton.setOnAction(event -> handleUserInput());
+        userInput.setOnAction(event -> handleUserInput());
+        dialogContainer.heightProperty().addListener(observable -> scrollPane.setVvalue(1.0));
 
         Scene scene = new Scene(mainLayout, 500, 400);
         stage.setScene(scene);
         stage.setTitle("Jason");
         stage.show();
+    }
+
+    /**
+     * Adds the user's input to the conversation and clears the input field.
+     * Empty input is ignored so that blank dialog boxes are not displayed.
+     */
+    private void handleUserInput() {
+        String message = userInput.getText().trim();
+        if (message.isEmpty()) {
+            return;
+        }
+
+        dialogContainer.getChildren().add(DialogBox.getUserDialog(message));
+        userInput.clear();
     }
 }
