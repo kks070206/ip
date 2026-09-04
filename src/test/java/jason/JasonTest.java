@@ -98,6 +98,16 @@ class JasonTest {
     }
 
     @Test
+    void getResponse_validCommand_returnsResponseAndUpdatesTasks() {
+        Jason jason = new Jason();
+
+        String response = jason.getResponse("todo read book");
+
+        assertEquals("Added: [T] [ ] read book", response);
+        assertEquals(1, jason.size());
+    }
+
+    @Test
     void run_exitCommand_showsWelcomeAndGoodbye() {
         System.setIn(new ByteArrayInputStream("bye\n".getBytes(StandardCharsets.UTF_8)));
         ByteArrayOutputStream output = new ByteArrayOutputStream();

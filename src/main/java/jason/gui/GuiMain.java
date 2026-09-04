@@ -1,5 +1,6 @@
 package jason.gui;
 
+import jason.Jason;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ public class GuiMain extends Application {
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
+    private Jason jason;
 
     /**
      * Displays the initial JavaFX window and its chatbot layout.
@@ -22,6 +24,7 @@ public class GuiMain extends Application {
      */
     @Override
     public void start(Stage stage) {
+        jason = new Jason();
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -65,7 +68,11 @@ public class GuiMain extends Application {
             return;
         }
 
+        String response = jason.getResponse(message);
         dialogContainer.getChildren().add(DialogBox.getUserDialog(message));
+        if (!response.isBlank()) {
+            dialogContainer.getChildren().add(DialogBox.getJasonDialog(response));
+        }
         userInput.clear();
     }
 }
