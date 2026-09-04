@@ -1,6 +1,7 @@
 package jason.gui;
 
 import jason.Jason;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -45,10 +46,14 @@ public class MainWindow {
         }
 
         String response = jason.getResponse(message);
+        String commandType = jason.getLastCommandType();
         dialogContainer.getChildren().add(DialogBox.getUserDialog(message));
         if (!response.isBlank()) {
-            dialogContainer.getChildren().add(DialogBox.getJasonDialog(response));
+            dialogContainer.getChildren().add(DialogBox.getJasonDialog(response, commandType));
         }
         userInput.clear();
+        if (message.equals("bye")) {
+            Platform.exit();
+        }
     }
 }

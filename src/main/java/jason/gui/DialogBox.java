@@ -6,25 +6,27 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /** Represents one chatbot message with a simple speaker avatar. */
 public class DialogBox extends HBox {
-    private static final String USER_AVATAR = "🙂";
-    private static final String JASON_AVATAR = "🤖";
+    private static final String USER_AVATAR_PATH = "/images/user-avatar.jpg";
+    private static final String JASON_AVATAR_PATH = "/images/jason-avatar.png";
 
     @FXML
     private Label text;
     @FXML
-    private Label avatar;
+    private ImageView avatar;
 
     /**
      * Creates a dialog box from its FXML view.
      *
      * @param message message to display.
-     * @param avatarText speaker marker to display.
+     * @param avatarPath classpath path of the speaker avatar to display.
      */
-    private DialogBox(String message, String avatarText) {
+    private DialogBox(String message, String avatarPath) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(DialogBox.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setRoot(this);
@@ -35,7 +37,10 @@ public class DialogBox extends HBox {
         }
 
         text.setText(message);
-        avatar.setText(avatarText);
+        avatar.setImage(new Image(DialogBox.class.getResourceAsStream(avatarPath)));
+        avatar.setFitHeight(56.0);
+        avatar.setFitWidth(56.0);
+        avatar.setPreserveRatio(true);
         getStyleClass().add("dialog-box");
         text.getStyleClass().add("dialog-text");
         avatar.getStyleClass().add("avatar");
@@ -49,7 +54,7 @@ public class DialogBox extends HBox {
      * @return a right-aligned user dialog box.
      */
     public static DialogBox getUserDialog(String message) {
-        DialogBox dialogBox = new DialogBox(message, USER_AVATAR);
+        DialogBox dialogBox = new DialogBox(message, USER_AVATAR_PATH);
         dialogBox.getStyleClass().add("user-dialog");
         return dialogBox;
     }
@@ -61,9 +66,24 @@ public class DialogBox extends HBox {
      * @return a left-aligned Jason dialog box.
      */
     public static DialogBox getJasonDialog(String message) {
-        DialogBox dialogBox = new DialogBox(message, JASON_AVATAR);
+        DialogBox dialogBox = new DialogBox(message, JASON_AVATAR_PATH);
         dialogBox.flip();
         dialogBox.getStyleClass().add("jason-dialog");
+        return dialogBox;
+    }
+
+    /**
+     * Creates a Jason response dialog with styling based on the command type.
+     *
+     * @param message response written by Jason.
+     * @param commandType type of command that generated the response.
+     * @return a styled, left-aligned Jason dialog box.
+     */
+    public static DialogBox getJasonDialog(String message, String commandType) {
+        DialogBox dialogBox = getJasonDialog(message);
+        if (commandType != null) {
+            dialogBox.getStyleClass().add(commandType.toLowerCase().replace("command", "-command"));
+        }
         return dialogBox;
     }
 

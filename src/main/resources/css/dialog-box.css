@@ -18,7 +18,18 @@
     -fx-border-radius: 14px 14px 2px 14px;
 }
 
+.add-command .dialog-text {
+    -fx-background-color: #fff3bf;
+}
+
+.mark-command .dialog-text {
+    -fx-background-color: #d9f7df;
+}
+
+.delete-command .dialog-text {
+    -fx-background-color: #ffe0e0;
+}
+
 .avatar {
-    -fx-font-size: 24px;
-    -fx-padding: 0 4px;
+    -fx-effect: dropshadow(gaussian, rgba(35, 48, 68, 0.2), 5, 0.3, 1, 2);
 }

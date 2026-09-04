@@ -20,6 +20,7 @@ public class Jason {
     private final Ui ui;
     private final Parser parser;
     private TaskList taskList;
+    private String lastCommandType;
 
     /**
      * Creates Jason with the default command-line UI.
@@ -96,11 +97,21 @@ public class Jason {
         Ui responseUi = new Ui(message -> response.append(message).append(System.lineSeparator()));
         try {
             Command command = parser.parse(input);
+            lastCommandType = command.getClass().getSimpleName();
             command.execute(taskList, responseUi, storage);
         } catch (Exception exception) {
             responseUi.showError(exception);
         }
         return response.toString().stripTrailing();
+    }
+
+    /**
+     * Returns the type of the most recently parsed command.
+     *
+     * @return simple class name of the most recently parsed command, or null if none was parsed.
+     */
+    public String getLastCommandType() {
+        return lastCommandType;
     }
 
     /**

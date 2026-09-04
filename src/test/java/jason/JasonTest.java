@@ -105,6 +105,7 @@ class JasonTest {
 
         assertEquals("Added: [T] [ ] read book", response);
         assertEquals(1, jason.size());
+        assertEquals("AddCommand", jason.getLastCommandType());
     }
 
     @Test
