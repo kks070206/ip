@@ -1,5 +1,9 @@
 package jason.gui;
 
+import java.io.IOException;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -9,16 +13,33 @@ public class DialogBox extends HBox {
     private static final String USER_AVATAR = "🙂";
     private static final String JASON_AVATAR = "🤖";
 
-    private final Label text;
-    private final Label avatar;
+    @FXML
+    private Label text;
+    @FXML
+    private Label avatar;
 
+    /**
+     * Creates a dialog box from its FXML view.
+     *
+     * @param message message to display.
+     * @param avatarText speaker marker to display.
+     */
     private DialogBox(String message, String avatarText) {
-        text = new Label(message);
-        avatar = new Label(avatarText);
-        text.setWrapText(true);
-        setSpacing(10);
-        setAlignment(Pos.TOP_RIGHT);
-        getChildren().addAll(text, avatar);
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(DialogBox.class.getResource("/view/DialogBox.fxml"));
+            fxmlLoader.setRoot(this);
+            fxmlLoader.setController(this);
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new IllegalStateException("Unable to load the dialog box GUI.", exception);
+        }
+
+        text.setText(message);
+        avatar.setText(avatarText);
+        getStyleClass().add("dialog-box");
+        text.getStyleClass().add("dialog-text");
+        avatar.getStyleClass().add("avatar");
+        getStylesheets().add(DialogBox.class.getResource("/css/dialog-box.css").toExternalForm());
     }
 
     /**
@@ -28,7 +49,9 @@ public class DialogBox extends HBox {
      * @return a right-aligned user dialog box.
      */
     public static DialogBox getUserDialog(String message) {
-        return new DialogBox(message, USER_AVATAR);
+        DialogBox dialogBox = new DialogBox(message, USER_AVATAR);
+        dialogBox.getStyleClass().add("user-dialog");
+        return dialogBox;
     }
 
     /**
@@ -40,6 +63,7 @@ public class DialogBox extends HBox {
     public static DialogBox getJasonDialog(String message) {
         DialogBox dialogBox = new DialogBox(message, JASON_AVATAR);
         dialogBox.flip();
+        dialogBox.getStyleClass().add("jason-dialog");
         return dialogBox;
     }
 

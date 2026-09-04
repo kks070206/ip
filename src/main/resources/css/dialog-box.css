@@ -1,0 +1,24 @@
+.dialog-box {
+    -fx-padding: 8px 10px;
+}
+
+.dialog-text {
+    -fx-background-color: white;
+    -fx-background-radius: 14px 14px 14px 2px;
+    -fx-border-color: #d7e0eb;
+    -fx-border-radius: 14px 14px 14px 2px;
+    -fx-padding: 10px 14px;
+    -fx-text-fill: #233044;
+}
+
+.user-dialog .dialog-text {
+    -fx-background-color: #dbe8ff;
+    -fx-border-color: #b8cdf5;
+    -fx-background-radius: 14px 14px 2px 14px;
+    -fx-border-radius: 14px 14px 2px 14px;
+}
+
+.avatar {
+    -fx-font-size: 24px;
+    -fx-padding: 0 4px;
+}

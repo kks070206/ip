@@ -24,8 +24,11 @@ public class GuiMain extends Application {
             fxmlLoader.<MainWindow>getController().setJason(new Jason());
 
             Scene scene = new Scene(mainWindow);
+            scene.getStylesheets().add(GuiMain.class.getResource("/css/main.css").toExternalForm());
             stage.setScene(scene);
             stage.setTitle("Jason");
+            stage.setMinWidth(417.0);
+            stage.setMinHeight(300.0);
             stage.show();
         } catch (IOException exception) {
             throw new IllegalStateException("Unable to load the Jason GUI.", exception);
