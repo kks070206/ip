@@ -59,6 +59,13 @@ application {
     mainClass = 'jason.Main'
 }
 
+tasks.register('runGui', JavaExec) {
+    group = 'application'
+    description = 'Launches Jason using the optional JavaFX graphical user interface.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'jason.gui.GuiLauncher'
+}
+
 jar {
     // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
     enabled = false
