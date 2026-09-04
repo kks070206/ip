@@ -18,6 +18,15 @@ public class TaskList {
     }
 
     /**
+     * Creates a task list containing the supplied tasks.
+     *
+     * @param tasks tasks to place into the list.
+     */
+    public TaskList(Task... tasks) {
+        this.taskList = new ArrayList<>(List.of(tasks));
+    }
+
+    /**
      * Creates a task list containing a copy of the supplied tasks.
      *
      * @param tasks tasks to copy into the list.

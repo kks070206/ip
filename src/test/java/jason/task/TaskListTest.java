@@ -25,6 +25,25 @@ class TaskListTest {
     }
 
     @Test
+    void constructor_varargsTasks_initializesListWithThoseTasks() {
+        Task first = new ToDo("first");
+        Task second = new ToDo("second");
+
+        TaskList tasks = new TaskList(first, second);
+
+        assertEquals(2, tasks.size());
+        assertSame(first, tasks.get(1));
+        assertSame(second, tasks.get(2));
+    }
+
+    @Test
+    void constructor_emptyVarargs_initializesEmptyList() {
+        TaskList tasks = new TaskList(new Task[0]);
+
+        assertEquals(0, tasks.size());
+    }
+
+    @Test
     void add_newTask_increasesSizeAndPreservesOrder() {
         TaskList tasks = new TaskList();
         Task first = new ToDo("first");
