@@ -1,7 +1,7 @@
 package jason.gui;
 
 import jason.Jason;
-import jason.command.ExitCommand;
+import jason.command.CommandWords;
 import jason.ui.Ui;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -54,7 +54,7 @@ public class MainWindow {
             dialogContainer.getChildren().add(DialogBox.getJasonDialog(response, commandType));
         }
         userInput.clear();
-        if (message.equals(ExitCommand.COMMAND_WORD)) {
+        if (message.equals(CommandWords.EXIT)) {
             Platform.exit();
         }
     }

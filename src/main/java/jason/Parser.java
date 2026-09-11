@@ -6,6 +6,7 @@ import java.util.List;
 
 import jason.command.AddCommand;
 import jason.command.Command;
+import jason.command.CommandWords;
 import jason.command.DeleteCommand;
 import jason.command.ExitCommand;
 import jason.command.FindCommand;
@@ -25,15 +26,6 @@ import jason.task.ToDo;
  * Interprets user commands and creates tasks from add-task commands.
  */
 public class Parser {
-    private static final String TODO_COMMAND = "todo";
-    private static final String DEADLINE_COMMAND = "deadline";
-    private static final String EVENT_COMMAND = "event";
-    private static final String LIST_COMMAND = "list";
-    private static final String FIND_COMMAND = "find";
-    private static final String MARK_COMMAND = "mark";
-    private static final String UNMARK_COMMAND = "unmark";
-    private static final String DELETE_COMMAND = "delete";
-
     /**
      * Converts a complete user command into an executable command object.
      *
@@ -55,13 +47,14 @@ public class Parser {
             throw new InvalidCommandException();
         }
         return switch (words[0]) {
-            case TODO_COMMAND, DEADLINE_COMMAND, EVENT_COMMAND -> new AddCommand(parseTask(description));
-            case LIST_COMMAND -> new ListCommand();
-            case FIND_COMMAND -> new FindCommand(parseKeyword(description));
-            case ExitCommand.COMMAND_WORD -> new ExitCommand();
-            case MARK_COMMAND -> new MarkCommand(parseIndex(description));
-            case UNMARK_COMMAND -> new UnmarkCommand(parseIndex(description));
-            case DELETE_COMMAND -> new DeleteCommand(parseIndex(description));
+            case CommandWords.TODO, CommandWords.DEADLINE, CommandWords.EVENT
+                    -> new AddCommand(parseTask(description));
+            case CommandWords.LIST -> new ListCommand();
+            case CommandWords.FIND -> new FindCommand(parseKeyword(description));
+            case CommandWords.EXIT -> new ExitCommand();
+            case CommandWords.MARK -> new MarkCommand(parseIndex(description));
+            case CommandWords.UNMARK -> new UnmarkCommand(parseIndex(description));
+            case CommandWords.DELETE -> new DeleteCommand(parseIndex(description));
             default -> throw new InvalidCommandException();
         };
     }
@@ -114,9 +107,9 @@ public class Parser {
         }
 
         return switch (parsedInput[0]) {
-            case TODO_COMMAND -> parseTodo(normalizedDescription, parsedInput);
-            case DEADLINE_COMMAND -> parseDeadline(normalizedDescription, parsedInput);
-            case EVENT_COMMAND -> parseEvent(normalizedDescription, parsedInput);
+            case CommandWords.TODO -> parseTodo(normalizedDescription, parsedInput);
+            case CommandWords.DEADLINE -> parseDeadline(normalizedDescription, parsedInput);
+            case CommandWords.EVENT -> parseEvent(normalizedDescription, parsedInput);
             default -> throw new InvalidToDoException();
         };
     }
