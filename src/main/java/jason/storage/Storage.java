@@ -21,6 +21,11 @@ import jason.task.ToDo;
  * Handles loading tasks from and saving tasks to a file.
  */
 public class Storage {
+    private static final String TODO_TYPE = "T";
+    private static final String DEADLINE_TYPE = "D";
+    private static final String EVENT_TYPE = "E";
+    private static final String COMPLETED_STATUS = "1";
+    private static final String INCOMPLETE_STATUS = "0";
     private final Path filePath;
 
     /**
@@ -87,16 +92,16 @@ public class Storage {
      * Converts a task into the line format used by the save file.
      */
     private String toSaveFormat(Task task) {
-        String status = task.isCompleted() ? "1" : "0";
+        String status = task.isCompleted() ? COMPLETED_STATUS : INCOMPLETE_STATUS;
         if (task instanceof Deadline deadline) {
-            return String.format("D | %s | %s | %s", status,
+            return String.format("%s | %s | %s | %s", DEADLINE_TYPE, status,
                     task.getDescription(), deadline.getDeadline());
         }
         if (task instanceof Event event) {
-            return String.format("E | %s | %s | %s | %s", status,
+            return String.format("%s | %s | %s | %s | %s", EVENT_TYPE, status,
                     task.getDescription(), event.getStartDate(), event.getEndDate());
         }
-        return String.format("T | %s | %s", status, task.getDescription());
+        return String.format("%s | %s | %s", TODO_TYPE, status, task.getDescription());
     }
 
     /**
@@ -114,20 +119,21 @@ public class Storage {
         String type = fields[0].trim();
         String status = fields[1].trim();
         String description = fields[2].trim();
-        if (description.isEmpty() || !(status.equals("0") || status.equals("1"))) {
+        if (description.isEmpty()
+                || !(status.equals(INCOMPLETE_STATUS) || status.equals(COMPLETED_STATUS))) {
             return null;
         }
 
         Task task = switch (type) {
-            case "T" -> parseTodoRecord(fields, description);
-            case "D" -> parseDeadlineRecord(fields, description);
-            case "E" -> parseEventRecord(fields, description);
+            case TODO_TYPE -> parseTodoRecord(fields, description);
+            case DEADLINE_TYPE -> parseDeadlineRecord(fields, description);
+            case EVENT_TYPE -> parseEventRecord(fields, description);
             default -> null;
         };
         if (task == null) {
             return null;
         }
-        if (status.equals("1")) {
+        if (status.equals(COMPLETED_STATUS)) {
             task.markComplete();
         }
         return task;
