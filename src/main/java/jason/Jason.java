@@ -1,7 +1,11 @@
 package jason;
 
 import jason.command.Command;
+import jason.exception.InvalidCommandException;
+import jason.exception.InvalidDeadlineException;
+import jason.exception.InvalidEventException;
 import jason.exception.InvalidIndexException;
+import jason.exception.InvalidToDoException;
 import jason.storage.Storage;
 import jason.task.Task;
 import jason.task.TaskList;
@@ -11,10 +15,6 @@ import jason.ui.Ui;
  * Coordinates the user interface, command execution, task list, and storage.
  */
 public class Jason {
-    public static final String START_MESSAGE = "Hello! My name is Jason, inspired by JSON files "
-            + "used by software engineers.";
-    public static final String HELP_MESSAGE = "How may I help you today?";
-    public static final String END_MESSAGE = "Goodbye! Hope to see you again.";
     private static final String SAVE_FILE = "./data/jason.txt";
     private final Storage storage;
     private final Ui ui;
@@ -97,13 +97,32 @@ public class Jason {
         StringBuilder response = new StringBuilder();
         Ui responseUi = new Ui(message -> response.append(message).append(System.lineSeparator()));
         try {
-            Command command = parser.parse(input);
-            lastCommandType = command.getClass().getSimpleName();
-            command.execute(taskList, responseUi, storage);
+            executeCommand(input, responseUi);
         } catch (Exception exception) {
             responseUi.showError(exception);
         }
         return response.toString().stripTrailing();
+    }
+
+    /**
+     * Parses and executes one command using the supplied user interface.
+     *
+     * @param input command entered by the user.
+     * @param commandUi user interface used to report the command result.
+     * @return executed command.
+     * @throws InvalidCommandException if the command is not recognized or is incomplete.
+     * @throws InvalidToDoException if a todo command is malformed.
+     * @throws InvalidDeadlineException if a deadline command is malformed.
+     * @throws InvalidEventException if an event command is malformed.
+     * @throws InvalidIndexException if a task index is invalid.
+     */
+    private Command executeCommand(String input, Ui commandUi)
+            throws InvalidCommandException, InvalidToDoException, InvalidDeadlineException,
+            InvalidEventException, InvalidIndexException {
+        Command command = parser.parse(input);
+        lastCommandType = command.getClass().getSimpleName();
+        command.execute(taskList, commandUi, storage);
+        return command;
     }
 
     /**
@@ -176,9 +195,8 @@ public class Jason {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
-                Command command = parser.parse(fullCommand);
+                Command command = executeCommand(fullCommand, ui);
                 assert command != null : "Parser.parse() must return a command";
-                command.execute(taskList, ui, storage);
                 isExit = command.isExit();
             } catch (Exception e) {
                 ui.showError(e);
