@@ -79,7 +79,9 @@ public class Storage {
             }
             try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
                 for (int i = 1; i <= tasks.size(); i++) {
-                    writer.write(toSaveFormat(tasks.get(i)));
+                    Task task = tasks.get(i);
+                    assert task != null : "TaskList must not contain null tasks";
+                    writer.write(toSaveFormat(task));
                     writer.newLine();
                 }
             }
