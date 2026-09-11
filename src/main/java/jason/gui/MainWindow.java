@@ -1,6 +1,8 @@
 package jason.gui;
 
 import jason.Jason;
+import jason.command.CommandWords;
+import jason.ui.Ui;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -34,7 +36,7 @@ public class MainWindow {
      */
     public void setJason(Jason jason) {
         this.jason = jason;
-        dialogContainer.getChildren().add(DialogBox.getJasonDialog(Jason.HELP_MESSAGE));
+        dialogContainer.getChildren().add(DialogBox.getJasonDialog(Ui.HELP_MESSAGE));
     }
 
     /** Handles commands submitted through the text field or Send button. */
@@ -52,7 +54,7 @@ public class MainWindow {
             dialogContainer.getChildren().add(DialogBox.getJasonDialog(response, commandType));
         }
         userInput.clear();
-        if (message.equals("bye")) {
+        if (message.equals(CommandWords.EXIT)) {
             Platform.exit();
         }
     }

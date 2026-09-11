@@ -110,15 +110,15 @@ public class TaskList {
             return "List is empty. Please add something!";
         }
 
-        String res = "Here are the tasks on your list: \n";
+        StringBuilder result = new StringBuilder("Here are the tasks on your list: \n");
 
         for (int i = 1; i <= taskList.size(); i++) {
-            res += String.format("%d. %s\n", i, this.taskList.get(i - 1));
+            result.append(String.format("%d. %s\n", i, this.taskList.get(i - 1)));
         }
 
-        res += String.format("You have %d tasks.", this.taskList.size());
+        result.append(String.format("You have %d tasks.", this.taskList.size()));
 
-        return res;
+        return result.toString();
     }
 
 }
