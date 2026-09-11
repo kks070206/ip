@@ -8,6 +8,8 @@ import jason.ui.Ui;
  * Ends the application without changing the task list.
  */
 public class ExitCommand extends Command {
+    public static final String COMMAND_WORD = "bye";
+
     /**
      * Performs no state change because the application is exiting.
      *

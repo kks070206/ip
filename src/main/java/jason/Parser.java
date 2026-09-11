@@ -30,7 +30,6 @@ public class Parser {
     private static final String EVENT_COMMAND = "event";
     private static final String LIST_COMMAND = "list";
     private static final String FIND_COMMAND = "find";
-    private static final String BYE_COMMAND = "bye";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
     private static final String DELETE_COMMAND = "delete";
@@ -59,7 +58,7 @@ public class Parser {
             case TODO_COMMAND, DEADLINE_COMMAND, EVENT_COMMAND -> new AddCommand(parseTask(description));
             case LIST_COMMAND -> new ListCommand();
             case FIND_COMMAND -> new FindCommand(parseKeyword(description));
-            case BYE_COMMAND -> new ExitCommand();
+            case ExitCommand.COMMAND_WORD -> new ExitCommand();
             case MARK_COMMAND -> new MarkCommand(parseIndex(description));
             case UNMARK_COMMAND -> new UnmarkCommand(parseIndex(description));
             case DELETE_COMMAND -> new DeleteCommand(parseIndex(description));
