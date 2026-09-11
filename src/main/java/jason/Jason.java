@@ -40,6 +40,7 @@ public class Jason {
         }
         this.storage = new Storage(SAVE_FILE);
         this.taskList = new TaskList(storage.load());
+        assert this.taskList != null : "Storage.load() must return a task list";
         this.ui = ui;
         this.parser = new Parser();
     }
@@ -176,6 +177,7 @@ public class Jason {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command command = parser.parse(fullCommand);
+                assert command != null : "Parser.parse() must return a command";
                 command.execute(taskList, ui, storage);
                 isExit = command.isExit();
             } catch (Exception e) {
