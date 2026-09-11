@@ -71,7 +71,7 @@ class ParserTest {
 
     @Test
     void parseTask_todoCommand_createsTodo() throws Exception {
-        Task task = parser.parseTask("todo read book");
+        Task task = parser.parseTask("todo    read book");
 
         assertInstanceOf(ToDo.class, task);
         assertEquals("read book", task.getDescription());

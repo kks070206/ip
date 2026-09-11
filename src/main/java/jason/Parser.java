@@ -126,7 +126,7 @@ public class Parser {
         if (parsedInput.length < 2) {
             throw new InvalidToDoException();
         }
-        return new ToDo(description.split(" ", 2)[1]);
+        return new ToDo(description.split("\\s+", 2)[1].trim());
     }
 
     /**

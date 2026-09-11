@@ -135,3 +135,36 @@ _______
 _______
 Goodbye! Hope to see you again.
 ```
+
+## Test case: Todo command with repeated spaces
+
+### Aim
+
+Verify that repeated whitespace after `todo` is not included in the task
+description.
+
+### Command
+
+```shell
+java -cp build/classes/java/main jason.Main
+```
+
+### Input
+
+```text
+todo    read book
+bye
+```
+
+### Expected output
+
+```text
+Hello! My name is Jason, inspired by JSON files used by software engineers.
+How may I help you today?
+_______
+Added: [T] [ ] read book
+_______
+_______
+_______
+Goodbye! Hope to see you again.
+```
