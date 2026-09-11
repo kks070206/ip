@@ -118,44 +118,71 @@ public class Storage {
             return null;
         }
 
-        Task task;
-        switch (type) {
-            case "T" -> {
-                if (fields.length != 3) {
-                    return null;
-                }
-                task = new ToDo(description);
-            }
-            case "D" -> {
-                if (fields.length != 4 || fields[3].trim().isEmpty()) {
-                    return null;
-                }
-                try {
-                    task = new Deadline(description, fields[3].trim());
-                } catch (DateTimeParseException e) {
-                    return null;
-                }
-            }
-            case "E" -> {
-                if (fields.length != 5 || fields[3].trim().isEmpty()
-                        || fields[4].trim().isEmpty()) {
-                    return null;
-                }
-                try {
-                    task = new Event(description, parseDateTime(fields[3].trim()),
-                            parseDateTime(fields[4].trim()));
-                } catch (DateTimeParseException e) {
-                    return null;
-                }
-            }
-            default -> {
-                return null;
-            }
+        Task task = switch (type) {
+            case "T" -> parseTodoRecord(fields, description);
+            case "D" -> parseDeadlineRecord(fields, description);
+            case "E" -> parseEventRecord(fields, description);
+            default -> null;
+        };
+        if (task == null) {
+            return null;
         }
         if (status.equals("1")) {
             task.markComplete();
         }
         return task;
+    }
+
+    /**
+     * Parses a todo record from its storage fields.
+     *
+     * @param fields fields split from a saved record.
+     * @param description task description.
+     * @return parsed todo task, or null for an invalid record.
+     */
+    private Task parseTodoRecord(String[] fields, String description) {
+        if (fields.length != 3) {
+            return null;
+        }
+        return new ToDo(description);
+    }
+
+    /**
+     * Parses a deadline record from its storage fields.
+     *
+     * @param fields fields split from a saved record.
+     * @param description task description.
+     * @return parsed deadline task, or null for an invalid record.
+     */
+    private Task parseDeadlineRecord(String[] fields, String description) {
+        if (fields.length != 4 || fields[3].trim().isEmpty()) {
+            return null;
+        }
+        try {
+            return new Deadline(description, fields[3].trim());
+        } catch (DateTimeParseException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Parses an event record from its storage fields.
+     *
+     * @param fields fields split from a saved record.
+     * @param description task description.
+     * @return parsed event task, or null for an invalid record.
+     */
+    private Task parseEventRecord(String[] fields, String description) {
+        if (fields.length != 5 || fields[3].trim().isEmpty()
+                || fields[4].trim().isEmpty()) {
+            return null;
+        }
+        try {
+            return new Event(description, parseDateTime(fields[3].trim()),
+                    parseDateTime(fields[4].trim()));
+        } catch (DateTimeParseException e) {
+            return null;
+        }
     }
 
     /**
