@@ -53,6 +53,11 @@ class ParserTest {
     }
 
     @Test
+    void parseIndex_multipleSpaces_returnsIndex() {
+        assertEquals(2, parser.parseIndex("mark    2"));
+    }
+
+    @Test
     void parse_findCommandWithoutKeyword_throwsInvalidCommandException() {
         assertThrows(InvalidCommandException.class, () -> parser.parse("find"));
         assertThrows(InvalidCommandException.class, () -> parser.parse("find   "));

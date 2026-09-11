@@ -76,7 +76,7 @@ public class Parser {
      * @throws IllegalArgumentException if the command does not contain a numeric index.
      */
     public int parseIndex(String description) {
-        String[] words = description.split(" ");
+        String[] words = description.trim().split("\\s+");
         if (words.length < 2) {
             throw new IllegalArgumentException("A task index is required.");
         }
