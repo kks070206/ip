@@ -103,38 +103,68 @@ public class Parser {
             throw new InvalidToDoException();
         }
 
-        switch (parsedInput[0]) {
-            case "todo" -> {
-                if (parsedInput.length < 2) {
-                    throw new InvalidToDoException();
-                }
-                return new ToDo(description.split(" ", 2)[1]);
-            }
-            case "deadline" -> {
-                if (parsedInput.length < 4 || !Arrays.asList(parsedInput).contains("/by")) {
-                    throw new InvalidDeadlineException();
-                }
-                String[] parts = description.split("deadline\\s+|\\s+/by\\s+", 3);
-                try {
-                    return new Deadline(parts[1], parts[2]);
-                } catch (DateTimeParseException e) {
-                    throw new InvalidDeadlineException();
-                }
-            }
-            case "event" -> {
-                List<String> words = Arrays.asList(parsedInput);
-                if (parsedInput.length < 6 || !words.contains("/from")
-                        || !words.contains("/to")) {
-                    throw new InvalidEventException();
-                }
-                String[] parts = description.split("event\\s+|\\s+/from\\s+|\\s+/to\\s+", 4);
-                try {
-                    return new Event(parts[1], parts[2], parts[3]);
-                } catch (DateTimeParseException e) {
-                    throw new InvalidEventException();
-                }
-            }
+        return switch (parsedInput[0]) {
+            case "todo" -> parseTodo(description, parsedInput);
+            case "deadline" -> parseDeadline(description, parsedInput);
+            case "event" -> parseEvent(description, parsedInput);
             default -> throw new InvalidToDoException();
+        };
+    }
+
+    /**
+     * Creates a todo task after validating its description.
+     *
+     * @param description complete todo command.
+     * @param parsedInput command tokens.
+     * @return parsed todo task.
+     * @throws InvalidToDoException if the description is missing.
+     */
+    private Task parseTodo(String description, String[] parsedInput) throws InvalidToDoException {
+        if (parsedInput.length < 2) {
+            throw new InvalidToDoException();
+        }
+        return new ToDo(description.split(" ", 2)[1]);
+    }
+
+    /**
+     * Creates a deadline task after validating and parsing its date.
+     *
+     * @param description complete deadline command.
+     * @param parsedInput command tokens.
+     * @return parsed deadline task.
+     * @throws InvalidDeadlineException if the command or date is invalid.
+     */
+    private Task parseDeadline(String description, String[] parsedInput)
+            throws InvalidDeadlineException {
+        if (parsedInput.length < 4 || !Arrays.asList(parsedInput).contains("/by")) {
+            throw new InvalidDeadlineException();
+        }
+        String[] parts = description.split("deadline\\s+|\\s+/by\\s+", 3);
+        try {
+            return new Deadline(parts[1], parts[2]);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDeadlineException();
+        }
+    }
+
+    /**
+     * Creates an event task after validating and parsing its dates.
+     *
+     * @param description complete event command.
+     * @param parsedInput command tokens.
+     * @return parsed event task.
+     * @throws InvalidEventException if the command or dates are invalid.
+     */
+    private Task parseEvent(String description, String[] parsedInput) throws InvalidEventException {
+        List<String> words = Arrays.asList(parsedInput);
+        if (parsedInput.length < 6 || !words.contains("/from") || !words.contains("/to")) {
+            throw new InvalidEventException();
+        }
+        String[] parts = description.split("event\\s+|\\s+/from\\s+|\\s+/to\\s+", 4);
+        try {
+            return new Event(parts[1], parts[2], parts[3]);
+        } catch (DateTimeParseException e) {
+            throw new InvalidEventException();
         }
     }
 
