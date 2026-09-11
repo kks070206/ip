@@ -12,6 +12,15 @@ import jason.task.TaskList;
  * Handles all interaction between Jason and the command-line user.
  */
 public class Ui {
+    private static final String DIVIDER = "_______";
+    private static final String NO_MATCHING_TASKS_MESSAGE = "No matching tasks found.";
+    private static final String MATCHING_TASKS_HEADER = "Here are the matching tasks in your list:";
+    private static final String ADDED_TASK_PREFIX = "Added: ";
+    private static final String MARKED_COMPLETE_MESSAGE = "Nice! I have marked this task as done:";
+    private static final String MARKED_INCOMPLETE_MESSAGE = "OK, I've marked this task as not done yet:";
+    private static final String DELETED_TASK_MESSAGE = "Alright. I will remove this task:";
+    private static final String TASK_COUNT_MESSAGE = "You have %d tasks left in your list";
+
     private final Scanner scanner;
     private final Consumer<String> output;
 
@@ -64,7 +73,7 @@ public class Ui {
      * Prints the divider between command-line interactions.
      */
     public void showLine() {
-        output.accept("_______");
+        output.accept(DIVIDER);
     }
 
     /**
@@ -92,11 +101,11 @@ public class Ui {
      */
     public void showMatchingTasks(List<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
-            output.accept("No matching tasks found.");
+            output.accept(NO_MATCHING_TASKS_MESSAGE);
             return;
         }
 
-        output.accept("Here are the matching tasks in your list:");
+        output.accept(MATCHING_TASKS_HEADER);
         for (int i = 0; i < matchingTasks.size(); i++) {
             output.accept(String.format("%d. %s", i + 1, matchingTasks.get(i)));
         }
@@ -108,7 +117,7 @@ public class Ui {
      * @param task task that was added.
      */
     public void showAddedTask(Task task) {
-        output.accept("Added: " + task);
+        output.accept(ADDED_TASK_PREFIX + task);
     }
 
     /**
@@ -117,7 +126,7 @@ public class Ui {
      * @param task task that was marked complete.
      */
     public void showMarkedComplete(Task task) {
-        output.accept("Nice! I have marked this task as done:");
+        output.accept(MARKED_COMPLETE_MESSAGE);
         output.accept(task.toString());
     }
 
@@ -127,7 +136,7 @@ public class Ui {
      * @param task task that was marked incomplete.
      */
     public void showMarkedIncomplete(Task task) {
-        output.accept("OK, I've marked this task as not done yet:");
+        output.accept(MARKED_INCOMPLETE_MESSAGE);
         output.accept(task.toString());
     }
 
@@ -138,8 +147,8 @@ public class Ui {
      * @param remainingTasks number of tasks left after deletion.
      */
     public void showDeletedTask(Task task, int remainingTasks) {
-        output.accept("Alright. I will remove this task:");
+        output.accept(DELETED_TASK_MESSAGE);
         output.accept(task.toString());
-        output.accept(String.format("You have %d tasks left in your list", remainingTasks));
+        output.accept(String.format(TASK_COUNT_MESSAGE, remainingTasks));
     }
 }
