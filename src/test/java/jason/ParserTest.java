@@ -58,6 +58,12 @@ class ParserTest {
     }
 
     @Test
+    void parse_whitespaceAroundCommand_returnsCommand() throws Exception {
+        assertInstanceOf(ListCommand.class, parser.parse("  list  "));
+        assertInstanceOf(AddCommand.class, parser.parse("  todo   read book  "));
+    }
+
+    @Test
     void parse_findCommandWithoutKeyword_throwsInvalidCommandException() {
         assertThrows(InvalidCommandException.class, () -> parser.parse("find"));
         assertThrows(InvalidCommandException.class, () -> parser.parse("find   "));

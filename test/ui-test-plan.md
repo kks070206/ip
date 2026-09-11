@@ -75,6 +75,35 @@ _______
 Goodbye! Hope to see you again.
 ```
 
+## Test case: Whitespace around an exit command
+
+### Aim
+
+Verify that leading whitespace does not prevent the chatbot from recognizing
+an exit command.
+
+### Command
+
+```shell
+java -cp build/classes/java/main jason.Main
+```
+
+### Input
+
+```text
+  bye
+```
+
+### Expected output
+
+```text
+Hello! My name is Jason, inspired by JSON files used by software engineers.
+How may I help you today?
+_______
+_______
+Goodbye! Hope to see you again.
+```
+
 ## Test case: Index command with repeated spaces
 
 ### Aim

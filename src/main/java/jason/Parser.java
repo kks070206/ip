@@ -41,7 +41,7 @@ public class Parser {
         if (description == null) {
             throw new InvalidCommandException();
         }
-        String[] words = description.split(" ");
+        String[] words = description.trim().split("\\s+");
         if (words.length == 0 || words[0].isEmpty()) {
             throw new InvalidCommandException();
         }
@@ -98,15 +98,16 @@ public class Parser {
      */
     public Task parseTask(String description)
             throws InvalidToDoException, InvalidDeadlineException, InvalidEventException {
-        String[] parsedInput = description.split(" ");
+        String normalizedDescription = description.trim();
+        String[] parsedInput = normalizedDescription.split("\\s+");
         if (parsedInput.length == 0) {
             throw new InvalidToDoException();
         }
 
         return switch (parsedInput[0]) {
-            case "todo" -> parseTodo(description, parsedInput);
-            case "deadline" -> parseDeadline(description, parsedInput);
-            case "event" -> parseEvent(description, parsedInput);
+            case "todo" -> parseTodo(normalizedDescription, parsedInput);
+            case "deadline" -> parseDeadline(normalizedDescription, parsedInput);
+            case "event" -> parseEvent(normalizedDescription, parsedInput);
             default -> throw new InvalidToDoException();
         };
     }
