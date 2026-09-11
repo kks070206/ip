@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
-import jason.Jason;
 import jason.task.Task;
 import jason.task.TaskList;
 
@@ -12,6 +11,10 @@ import jason.task.TaskList;
  * Handles all interaction between Jason and the command-line user.
  */
 public class Ui {
+    public static final String START_MESSAGE = "Hello! My name is Jason, inspired by JSON files "
+            + "used by software engineers.";
+    public static final String HELP_MESSAGE = "How may I help you today?";
+    public static final String END_MESSAGE = "Goodbye! Hope to see you again.";
     private static final String DIVIDER = "_______";
     private static final String NO_MATCHING_TASKS_MESSAGE = "No matching tasks found.";
     private static final String MATCHING_TASKS_HEADER = "Here are the matching tasks in your list:";
@@ -49,8 +52,8 @@ public class Ui {
      * Prints the chatbot's welcome messages.
      */
     public void showWelcome() {
-        output.accept(Jason.START_MESSAGE);
-        output.accept(Jason.HELP_MESSAGE);
+        output.accept(START_MESSAGE);
+        output.accept(HELP_MESSAGE);
     }
 
     /**
@@ -66,7 +69,7 @@ public class Ui {
      * Prints the chatbot's goodbye message.
      */
     public void showGoodbye() {
-        output.accept(Jason.END_MESSAGE);
+        output.accept(END_MESSAGE);
     }
 
     /**

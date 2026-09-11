@@ -15,10 +15,6 @@ import jason.ui.Ui;
  * Coordinates the user interface, command execution, task list, and storage.
  */
 public class Jason {
-    public static final String START_MESSAGE = "Hello! My name is Jason, inspired by JSON files "
-            + "used by software engineers.";
-    public static final String HELP_MESSAGE = "How may I help you today?";
-    public static final String END_MESSAGE = "Goodbye! Hope to see you again.";
     private static final String SAVE_FILE = "./data/jason.txt";
     private final Storage storage;
     private final Ui ui;
