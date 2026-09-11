@@ -2,7 +2,10 @@ package jason.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
 
@@ -33,5 +36,21 @@ class TaskTest {
     @Test
     void todo_toString_includesTodoType() {
         assertEquals("[T] [ ] read book", new ToDo("read book").toString());
+    }
+
+    @Test
+    void durationTodo_toStringUsesCanonicalDuration() {
+        ToDo todo = new ToDo("read report", Duration.ofMinutes(90));
+
+        assertEquals("[T] [ ] read report (for: 1h 30m)", todo.toString());
+        assertEquals(Duration.ofMinutes(90), todo.getDuration());
+    }
+
+    @Test
+    void durationTodo_invalidDuration_throwsException() {
+        assertThrows(IllegalArgumentException.class, () ->
+                new ToDo("read report", Duration.ZERO));
+        assertThrows(IllegalArgumentException.class, () ->
+                new ToDo("read report", Duration.ofHours(25)));
     }
 }

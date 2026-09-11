@@ -1,8 +1,11 @@
 package jason;
 
+import java.time.Duration;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import jason.command.AddCommand;
 import jason.command.Command;
@@ -26,6 +29,10 @@ import jason.task.ToDo;
  * Interprets user commands and creates tasks from add-task commands.
  */
 public class Parser {
+    private static final Pattern HOURS_PATTERN = Pattern.compile("(\\d+)h(?:\\s+(\\d+)m)?");
+    private static final Pattern MINUTES_PATTERN = Pattern.compile("(\\d+)m");
+    private static final int MAX_DURATION_MINUTES = 24 * 60;
+
     /**
      * Converts a complete user command into an executable command object.
      *
@@ -126,7 +133,53 @@ public class Parser {
         if (parsedInput.length < 2) {
             throw new InvalidToDoException();
         }
-        return new ToDo(description.split("\\s+", 2)[1].trim());
+        int durationMarkerIndex = Arrays.asList(parsedInput).indexOf("/for");
+        if (durationMarkerIndex < 0) {
+            return new ToDo(description.split("\\s+", 2)[1].trim());
+        }
+        if (durationMarkerIndex < 2 || durationMarkerIndex == parsedInput.length - 1) {
+            throw new InvalidToDoException();
+        }
+
+        String taskDescription = String.join(" ", Arrays.copyOfRange(parsedInput, 1,
+                durationMarkerIndex));
+        String durationText = String.join(" ", Arrays.copyOfRange(parsedInput,
+                durationMarkerIndex + 1, parsedInput.length));
+        return new ToDo(taskDescription, parseDuration(durationText));
+    }
+
+    /**
+     * Parses a duration written in hours and minutes.
+     *
+     * @param durationText duration text from a todo command.
+     * @return parsed duration.
+     * @throws InvalidToDoException if the duration is malformed or outside the allowed range.
+     */
+    private Duration parseDuration(String durationText) throws InvalidToDoException {
+        try {
+            Matcher hoursMatcher = HOURS_PATTERN.matcher(durationText);
+            Matcher minutesMatcher = MINUTES_PATTERN.matcher(durationText);
+            long totalMinutes;
+            if (hoursMatcher.matches()) {
+                long hours = Long.parseLong(hoursMatcher.group(1));
+                String minutePart = hoursMatcher.group(2);
+                long minutes = minutePart == null ? 0 : Long.parseLong(minutePart);
+                if (minutes > 59) {
+                    throw new InvalidToDoException();
+                }
+                totalMinutes = Math.addExact(Math.multiplyExact(hours, 60), minutes);
+            } else if (minutesMatcher.matches()) {
+                totalMinutes = Long.parseLong(minutesMatcher.group(1));
+            } else {
+                throw new InvalidToDoException();
+            }
+            if (totalMinutes < 1 || totalMinutes > MAX_DURATION_MINUTES) {
+                throw new InvalidToDoException();
+            }
+            return Duration.ofMinutes(totalMinutes);
+        } catch (ArithmeticException | NumberFormatException e) {
+            throw new InvalidToDoException();
+        }
     }
 
     /**

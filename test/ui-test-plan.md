@@ -75,6 +75,72 @@ _______
 Goodbye! Hope to see you again.
 ```
 
+## Test case: Todo with a fixed duration
+
+### Aim
+
+Verify that a todo accepts a duration in minutes and displays the normalized
+hours-and-minutes value.
+
+### Command
+
+```shell
+java -cp build/classes/java/main jason.Main
+```
+
+### Input
+
+```text
+todo read sales report /for 90m
+bye
+```
+
+### Expected output
+
+```text
+Hello! My name is Jason, inspired by JSON files used by software engineers.
+How may I help you today?
+_______
+Added: [T] [ ] read sales report (for: 1h 30m)
+_______
+_______
+_______
+Goodbye! Hope to see you again.
+```
+
+## Test case: Invalid fixed duration
+
+### Aim
+
+Verify that an invalid duration reports the accepted format and the 24-hour
+limit.
+
+### Command
+
+```shell
+java -cp build/classes/java/main jason.Main
+```
+
+### Input
+
+```text
+todo read sales report /for 25h
+bye
+```
+
+### Expected output
+
+```text
+Hello! My name is Jason, inspired by JSON files used by software engineers.
+How may I help you today?
+_______
+Todo commands are in the form "todo {description} [/for {duration}]". Duration must be between 1 minute and 24 hours, using formats such as "2h", "90m", or "1h 30m".
+_______
+_______
+_______
+Goodbye! Hope to see you again.
+```
+
 ## Test case: Whitespace around an exit command
 
 ### Aim

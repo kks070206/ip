@@ -1,30 +1,61 @@
 # Jason User Guide
 
-// Update the title above to match the actual product name
+Jason is a command-line task manager with an optional JavaFX graphical
+interface.
 
-// Product screenshot goes here
+## Adding todos
 
-// Product intro goes here
+Add a normal todo with:
+
+```text
+todo <description>
+```
+
+Example:
+
+```text
+todo read book
+```
+
+Add an unscheduled todo with a fixed duration using `/for`:
+
+```text
+todo <description> /for <duration>
+```
+
+The accepted duration formats are `2h`, `90m`, and `1h 30m`. Durations must
+be between 1 minute and 24 hours. The application displays and stores the
+duration in normalized form, such as `1h 30m`.
+
+Example:
+
+```text
+todo read sales report /for 90m
+```
+
+Expected output:
+
+```text
+Added: [T] [ ] read sales report (for: 1h 30m)
+```
+
+Duration todos are descriptive only. Jason does not start a timer or track
+the actual time spent. They can be listed, found by description, marked,
+unmarked, and deleted like normal todos.
+
+Invalid examples include `todo read report /for`, `todo read report /for 0m`,
+and `todo read report /for 25h`.
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+Add a deadline with:
 
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
+```text
+deadline <description> /by <YYYY-MM-DD HH:MM>
 ```
 
-## Feature ABC
+Example:
 
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+```text
+deadline submit report /by 2026-10-15 18:00
+```

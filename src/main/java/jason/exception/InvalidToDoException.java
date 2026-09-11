@@ -18,6 +18,8 @@ public class InvalidToDoException extends InvalidCommandException {
      */
     @Override
     public String toString() {
-        return "ToDo commands are in the form \"todo {description}\"";
+        return "Todo commands are in the form \"todo {description} [/for {duration}]\". "
+                + "Duration must be between 1 minute and 24 hours, using formats such as \"2h\", "
+                + "\"90m\", or \"1h 30m\".";
     }
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -95,6 +96,10 @@ public class Storage {
      */
     private String toSaveFormat(Task task) {
         String status = task.isCompleted() ? COMPLETED_STATUS : INCOMPLETE_STATUS;
+        if (task instanceof ToDo todo && todo.getDuration() != null) {
+            return String.format("%s | %s | %s | %d", TODO_TYPE, status,
+                    task.getDescription(), todo.getDuration().toMinutes());
+        }
         if (task instanceof Deadline deadline) {
             return String.format("%s | %s | %s | %s", DEADLINE_TYPE, status,
                     task.getDescription(), deadline.getDeadline());
@@ -149,10 +154,17 @@ public class Storage {
      * @return parsed todo task, or null for an invalid record.
      */
     private Task parseTodoRecord(String[] fields, String description) {
-        if (fields.length != 3) {
+        if (fields.length == 3) {
+            return new ToDo(description);
+        }
+        if (fields.length != 4 || fields[3].trim().isEmpty()) {
             return null;
         }
-        return new ToDo(description);
+        try {
+            return new ToDo(description, Duration.ofMinutes(Long.parseLong(fields[3].trim())));
+        } catch (NumberFormatException | ArithmeticException e) {
+            return null;
+        }
     }
 
     /**

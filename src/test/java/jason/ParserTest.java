@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
@@ -75,6 +76,27 @@ class ParserTest {
 
         assertInstanceOf(ToDo.class, task);
         assertEquals("read book", task.getDescription());
+    }
+
+    @Test
+    void parseTask_durationTodo_acceptsSupportedFormats() throws Exception {
+        assertEquals(Duration.ofHours(2), ((ToDo) parser.parseTask(
+                "todo read report /for 2h")).getDuration());
+        assertEquals(Duration.ofMinutes(90), ((ToDo) parser.parseTask(
+                "todo read report /for 90m")).getDuration());
+        assertEquals(Duration.ofMinutes(90), ((ToDo) parser.parseTask(
+                "todo read report /for 1h 30m")).getDuration());
+    }
+
+    @Test
+    void parseTask_durationTodo_rejectsInvalidFormats() {
+        assertThrows(InvalidToDoException.class, () -> parser.parseTask("todo read report /for"));
+        assertThrows(InvalidToDoException.class, () -> parser.parseTask("todo read report /for 0m"));
+        assertThrows(InvalidToDoException.class, () -> parser.parseTask("todo read report /for 25h"));
+        assertThrows(InvalidToDoException.class, () -> parser.parseTask("todo read report /for 1h 60m"));
+        assertThrows(InvalidToDoException.class, () -> parser.parseTask(
+                "todo read report /for 999999999999999999999999h"));
+        assertThrows(InvalidToDoException.class, () -> parser.parseTask("todo /for 2h"));
     }
 
     @Test
