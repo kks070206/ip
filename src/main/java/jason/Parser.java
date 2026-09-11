@@ -25,6 +25,16 @@ import jason.task.ToDo;
  * Interprets user commands and creates tasks from add-task commands.
  */
 public class Parser {
+    private static final String TODO_COMMAND = "todo";
+    private static final String DEADLINE_COMMAND = "deadline";
+    private static final String EVENT_COMMAND = "event";
+    private static final String LIST_COMMAND = "list";
+    private static final String FIND_COMMAND = "find";
+    private static final String BYE_COMMAND = "bye";
+    private static final String MARK_COMMAND = "mark";
+    private static final String UNMARK_COMMAND = "unmark";
+    private static final String DELETE_COMMAND = "delete";
+
     /**
      * Converts a complete user command into an executable command object.
      *
@@ -46,13 +56,13 @@ public class Parser {
             throw new InvalidCommandException();
         }
         return switch (words[0]) {
-            case "todo", "deadline", "event" -> new AddCommand(parseTask(description));
-            case "list" -> new ListCommand();
-            case "find" -> new FindCommand(parseKeyword(description));
-            case "bye" -> new ExitCommand();
-            case "mark" -> new MarkCommand(parseIndex(description));
-            case "unmark" -> new UnmarkCommand(parseIndex(description));
-            case "delete" -> new DeleteCommand(parseIndex(description));
+            case TODO_COMMAND, DEADLINE_COMMAND, EVENT_COMMAND -> new AddCommand(parseTask(description));
+            case LIST_COMMAND -> new ListCommand();
+            case FIND_COMMAND -> new FindCommand(parseKeyword(description));
+            case BYE_COMMAND -> new ExitCommand();
+            case MARK_COMMAND -> new MarkCommand(parseIndex(description));
+            case UNMARK_COMMAND -> new UnmarkCommand(parseIndex(description));
+            case DELETE_COMMAND -> new DeleteCommand(parseIndex(description));
             default -> throw new InvalidCommandException();
         };
     }
@@ -105,9 +115,9 @@ public class Parser {
         }
 
         return switch (parsedInput[0]) {
-            case "todo" -> parseTodo(normalizedDescription, parsedInput);
-            case "deadline" -> parseDeadline(normalizedDescription, parsedInput);
-            case "event" -> parseEvent(normalizedDescription, parsedInput);
+            case TODO_COMMAND -> parseTodo(normalizedDescription, parsedInput);
+            case DEADLINE_COMMAND -> parseDeadline(normalizedDescription, parsedInput);
+            case EVENT_COMMAND -> parseEvent(normalizedDescription, parsedInput);
             default -> throw new InvalidToDoException();
         };
     }
