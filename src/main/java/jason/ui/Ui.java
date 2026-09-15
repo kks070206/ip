@@ -13,16 +13,16 @@ import jason.task.TaskList;
 public class Ui {
     public static final String START_MESSAGE = "Hello! My name is Jason, inspired by JSON files "
             + "used by software engineers.";
-    public static final String HELP_MESSAGE = "How may I help you today?";
-    public static final String END_MESSAGE = "Goodbye! Hope to see you again.";
+    public static final String HELP_MESSAGE = "Send me a command, and I will keep your tasks neatly structured.";
+    public static final String END_MESSAGE = "Goodbye! Your task data is ready for the next session.";
     private static final String DIVIDER = "_______";
-    private static final String NO_MATCHING_TASKS_MESSAGE = "No matching tasks found.";
-    private static final String MATCHING_TASKS_HEADER = "Here are the matching tasks in your list:";
-    private static final String ADDED_TASK_PREFIX = "Added: ";
-    private static final String MARKED_COMPLETE_MESSAGE = "Nice! I have marked this task as done:";
-    private static final String MARKED_INCOMPLETE_MESSAGE = "OK, I've marked this task as not done yet:";
-    private static final String DELETED_TASK_MESSAGE = "Alright. I will remove this task:";
-    private static final String TASK_COUNT_MESSAGE = "You have %d tasks left in your list";
+    private static final String NO_MATCHING_TASKS_MESSAGE = "No matching task objects found.";
+    private static final String MATCHING_TASKS_HEADER = "Here are the matching task objects:";
+    private static final String ADDED_TASK_PREFIX = "Added to your task list: ";
+    private static final String MARKED_COMPLETE_MESSAGE = "Updated the completion flag to true:";
+    private static final String MARKED_INCOMPLETE_MESSAGE = "Updated the completion flag to false:";
+    private static final String DELETED_TASK_MESSAGE = "Removed from your task list:";
+    private static final String TASK_COUNT_MESSAGE = "Your JSON task array now contains %d tasks.";
 
     private final Scanner scanner;
     private final Consumer<String> output;

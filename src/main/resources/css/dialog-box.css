@@ -14,11 +14,11 @@
 }
 
 .user-dialog .dialog-text {
-    -fx-background-color: #e8efff;
-    -fx-border-color: #cbd9fb;
+    -fx-background-color: #dff4f1;
+    -fx-border-color: #b6ded9;
     -fx-background-radius: 12px 12px 3px 12px;
     -fx-border-radius: 12px 12px 3px 12px;
-    -fx-text-fill: #25406f;
+    -fx-text-fill: #155e59;
     -fx-font-size: 12px;
 }
 
@@ -33,8 +33,8 @@
 }
 
 .add-command .dialog-text {
-    -fx-background-color: #fff3bf;
-    -fx-border-color: #eed37a;
+    -fx-background-color: #e6f6ec;
+    -fx-border-color: #b7dfc4;
 }
 
 .mark-command .dialog-text {

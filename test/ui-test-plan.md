@@ -31,10 +31,10 @@ bye
 
 ```text
 Hello! My name is Jason, inspired by JSON files used by software engineers.
-How may I help you today?
+Send me a command, and I will keep your tasks neatly structured.
 _______
 _______
-Goodbye! Hope to see you again.
+Goodbye! Your task data is ready for the next session.
 ```
 
 Add further `## Test case:` sections below as UI behavior is implemented. Each
@@ -64,15 +64,15 @@ bye
 
 ```text
 Hello! My name is Jason, inspired by JSON files used by software engineers.
-How may I help you today?
+Send me a command, and I will keep your tasks neatly structured.
 _______
-Here are the matching tasks in your list:
+Here are the matching task objects:
 1. [T] [ ] eat lunch
 2. [E] [ ] lunch (from: Aug 29 2026 16:00 to: Aug 29 2026 18:00)
 _______
 _______
 _______
-Goodbye! Hope to see you again.
+Goodbye! Your task data is ready for the next session.
 ```
 
 ## Test case: Todo with a fixed duration
@@ -99,13 +99,13 @@ bye
 
 ```text
 Hello! My name is Jason, inspired by JSON files used by software engineers.
-How may I help you today?
+Send me a command, and I will keep your tasks neatly structured.
 _______
-Added: [T] [ ] read sales report (for: 1h 30m)
+Added to your task list: [T] [ ] read sales report (for: 1h 30m)
 _______
 _______
 _______
-Goodbye! Hope to see you again.
+Goodbye! Your task data is ready for the next session.
 ```
 
 ## Test case: Invalid fixed duration
@@ -132,13 +132,13 @@ bye
 
 ```text
 Hello! My name is Jason, inspired by JSON files used by software engineers.
-How may I help you today?
+Send me a command, and I will keep your tasks neatly structured.
 _______
 Todo commands are in the form "todo {description} [/for {duration}]". Duration must be between 1 minute and 24 hours, using formats such as "2h", "90m", or "1h 30m".
 _______
 _______
 _______
-Goodbye! Hope to see you again.
+Goodbye! Your task data is ready for the next session.
 ```
 
 ## Test case: Whitespace around an exit command
@@ -164,10 +164,10 @@ java -cp build/classes/java/main jason.Main
 
 ```text
 Hello! My name is Jason, inspired by JSON files used by software engineers.
-How may I help you today?
+Send me a command, and I will keep your tasks neatly structured.
 _______
 _______
-Goodbye! Hope to see you again.
+Goodbye! Your task data is ready for the next session.
 ```
 
 ## Test case: Index command with repeated spaces
@@ -193,13 +193,13 @@ bye
 
 ```text
 Hello! My name is Jason, inspired by JSON files used by software engineers.
-How may I help you today?
+Send me a command, and I will keep your tasks neatly structured.
 _______
 No such index in list.
 _______
 _______
 _______
-Goodbye! Hope to see you again.
+Goodbye! Your task data is ready for the next session.
 ```
 
 ## Test case: Todo command with repeated spaces
@@ -226,11 +226,11 @@ bye
 
 ```text
 Hello! My name is Jason, inspired by JSON files used by software engineers.
-How may I help you today?
+Send me a command, and I will keep your tasks neatly structured.
 _______
-Added: [T] [ ] read book
+Added to your task list: [T] [ ] read book
 _______
 _______
 _______
-Goodbye! Hope to see you again.
+Goodbye! Your task data is ready for the next session.
 ```

@@ -66,15 +66,16 @@ class UiTest {
         String consoleOutput = output.toString();
         assertTrue(consoleOutput.contains("Hello! My name is Jason"));
         assertTrue(consoleOutput.contains("_______"));
+        assertTrue(consoleOutput.contains("Send me a command, and I will keep your tasks neatly structured."));
         assertTrue(consoleOutput.contains("1. [T] [ ] read book"));
-        assertTrue(consoleOutput.contains("Added: [T] [ ] read book"));
-        assertTrue(consoleOutput.contains("Nice! I have marked this task as done:"));
-        assertTrue(consoleOutput.contains("OK, I've marked this task as not done yet:"));
-        assertTrue(consoleOutput.contains("You have 0 tasks left in your list"));
-        assertTrue(consoleOutput.contains("Here are the matching tasks in your list:"));
-        assertTrue(consoleOutput.contains("No matching tasks found."));
+        assertTrue(consoleOutput.contains("Added to your task list: [T] [ ] read book"));
+        assertTrue(consoleOutput.contains("Updated the completion flag to true:"));
+        assertTrue(consoleOutput.contains("Updated the completion flag to false:"));
+        assertTrue(consoleOutput.contains("Your JSON task array now contains 0 tasks."));
+        assertTrue(consoleOutput.contains("Here are the matching task objects:"));
+        assertTrue(consoleOutput.contains("No matching task objects found."));
         assertTrue(consoleOutput.contains("Invalid command."));
-        assertTrue(consoleOutput.contains("Goodbye! Hope to see you again."));
+        assertTrue(consoleOutput.contains("Goodbye! Your task data is ready for the next session."));
     }
 
     @Test
@@ -85,7 +86,7 @@ class UiTest {
         ui.showLine();
         ui.showGoodbye();
 
-        assertEquals(List.of("_______", "Goodbye! Hope to see you again."), messages);
+        assertEquals(List.of("_______", "Goodbye! Your task data is ready for the next session."), messages);
         assertEquals("", output.toString());
     }
 }

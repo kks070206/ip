@@ -19,11 +19,11 @@
                 <VBox spacing="2.0">
                     <children>
                         <Label styleClass="app-title" text="Jason" />
-                        <Label styleClass="app-subtitle" text="Your focused task companion" />
+                        <Label styleClass="app-subtitle" text="Your structured task companion" />
                     </children>
                 </VBox>
                 <Region HBox.hgrow="ALWAYS" />
-                <Label styleClass="app-status" text="READY" />
+                <Label styleClass="app-status" text="JSON MODE" />
             </children>
         </HBox>
     </top>

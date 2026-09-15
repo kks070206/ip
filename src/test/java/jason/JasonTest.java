@@ -104,7 +104,7 @@ class JasonTest {
 
         String response = jason.getResponse("todo read book");
 
-        assertEquals("Added: [T] [ ] read book", response);
+        assertEquals("Added to your task list: [T] [ ] read book", response);
         assertEquals(1, jason.size());
         assertEquals("AddCommand", jason.getLastCommandType());
     }
@@ -169,6 +169,6 @@ class JasonTest {
         String consoleOutput = output.toString();
         assertTrue(consoleOutput.contains("Hello! My name is Jason"));
         assertTrue(consoleOutput.contains("_______"));
-        assertTrue(consoleOutput.contains("Goodbye! Hope to see you again."));
+        assertTrue(consoleOutput.contains("Goodbye! Your task data is ready for the next session."));
     }
 }

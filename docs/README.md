@@ -36,7 +36,7 @@ todo read sales report /for 90m
 Expected output:
 
 ```text
-Added: [T] [ ] read sales report (for: 1h 30m)
+Added to your task list: [T] [ ] read sales report (for: 1h 30m)
 ```
 
 Duration todos are descriptive only. Jason does not start a timer or track

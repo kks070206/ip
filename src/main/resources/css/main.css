@@ -1,10 +1,10 @@
 .root {
-    -fx-background-color: #f7f8fc;
+    -fx-background-color: #f4f8f8;
     -fx-font-family: "System";
 }
 
 .app-header {
-    -fx-background-color: #17243b;
+    -fx-background-color: #102a43;
     -fx-padding: 14px 18px;
 }
 
@@ -15,12 +15,12 @@
 }
 
 .app-subtitle {
-    -fx-text-fill: #aebbd0;
+    -fx-text-fill: #b8d8d8;
     -fx-font-size: 11px;
 }
 
 .app-status {
-    -fx-background-color: #294765;
+    -fx-background-color: #0f766e;
     -fx-background-radius: 12px;
     -fx-padding: 5px 9px;
     -fx-text-fill: #bdebd0;
@@ -54,7 +54,7 @@
 }
 
 .text-field {
-    -fx-background-color: #f7f8fc;
+    -fx-background-color: #f4f8f8;
     -fx-background-radius: 9px;
     -fx-border-color: #d7deea;
     -fx-border-radius: 9px;
@@ -68,7 +68,7 @@
 }
 
 .button {
-    -fx-background-color: #356ae6;
+    -fx-background-color: #0f766e;
     -fx-background-radius: 9px;
     -fx-padding: 10px 16px;
     -fx-text-fill: white;
@@ -76,9 +76,9 @@
 }
 
 .button:hover {
-    -fx-background-color: #2856c5;
+    -fx-background-color: #0b5d57;
 }
 
 .button:pressed {
-    -fx-background-color: #1f46a8;
+    -fx-background-color: #084c47;
 }
