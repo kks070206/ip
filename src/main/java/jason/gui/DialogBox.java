@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /** Represents one chatbot message with a simple speaker avatar. */
 public class DialogBox extends HBox {
@@ -38,9 +39,10 @@ public class DialogBox extends HBox {
 
         text.setText(message);
         avatar.setImage(new Image(DialogBox.class.getResourceAsStream(avatarPath)));
-        avatar.setFitHeight(56.0);
-        avatar.setFitWidth(56.0);
+        avatar.setFitHeight(32.0);
+        avatar.setFitWidth(32.0);
         avatar.setPreserveRatio(true);
+        avatar.setClip(new Circle(16.0, 16.0, 16.0));
         getStyleClass().add("dialog-box");
         text.getStyleClass().add("dialog-text");
         avatar.getStyleClass().add("avatar");
@@ -55,6 +57,8 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getUserDialog(String message) {
         DialogBox dialogBox = new DialogBox(message, USER_AVATAR_PATH);
+        dialogBox.avatar.setManaged(false);
+        dialogBox.avatar.setVisible(false);
         dialogBox.getStyleClass().add("user-dialog");
         return dialogBox;
     }
@@ -84,6 +88,18 @@ public class DialogBox extends HBox {
         if (commandType != null) {
             dialogBox.getStyleClass().add(commandType.toLowerCase().replace("command", "-command"));
         }
+        return dialogBox;
+    }
+
+    /**
+     * Creates a Jason dialog box styled for an error response.
+     *
+     * @param message error message to display.
+     * @return a highlighted error dialog box.
+     */
+    public static DialogBox getJasonErrorDialog(String message) {
+        DialogBox dialogBox = getJasonDialog(message);
+        dialogBox.getStyleClass().add("error-response");
         return dialogBox;
     }
 

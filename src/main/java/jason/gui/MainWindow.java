@@ -51,7 +51,10 @@ public class MainWindow {
         String commandType = jason.getLastCommandType();
         dialogContainer.getChildren().add(DialogBox.getUserDialog(message));
         if (!response.isBlank()) {
-            dialogContainer.getChildren().add(DialogBox.getJasonDialog(response, commandType));
+            DialogBox responseDialog = commandType == null
+                    ? DialogBox.getJasonErrorDialog(response)
+                    : DialogBox.getJasonDialog(response, commandType);
+            dialogContainer.getChildren().add(responseDialog);
         }
         userInput.clear();
         if (message.equals(CommandWords.EXIT)) {

@@ -5,8 +5,8 @@ import java.io.IOException;
 import jason.Jason;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /** Provides the JavaFX application entry point for Jason's optional GUI. */
@@ -20,7 +20,7 @@ public class GuiMain extends Application {
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(GuiMain.class.getResource("/view/MainWindow.fxml"));
-            AnchorPane mainWindow = fxmlLoader.load();
+            Parent mainWindow = fxmlLoader.load();
             fxmlLoader.<MainWindow>getController().setJason(new Jason());
 
             Scene scene = new Scene(mainWindow);

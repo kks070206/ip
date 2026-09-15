@@ -96,6 +96,7 @@ public class Jason {
     public String getResponse(String input) {
         StringBuilder response = new StringBuilder();
         Ui responseUi = new Ui(message -> response.append(message).append(System.lineSeparator()));
+        lastCommandType = null;
         try {
             executeCommand(input, responseUi);
         } catch (Exception exception) {
@@ -120,8 +121,8 @@ public class Jason {
             throws InvalidCommandException, InvalidToDoException, InvalidDeadlineException,
             InvalidEventException, InvalidIndexException {
         Command command = parser.parse(input);
-        lastCommandType = command.getClass().getSimpleName();
         command.execute(taskList, commandUi, storage);
+        lastCommandType = command.getClass().getSimpleName();
         return command;
     }
 

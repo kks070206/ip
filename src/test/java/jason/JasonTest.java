@@ -2,6 +2,7 @@ package jason;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -116,6 +117,19 @@ class JasonTest {
 
         assertTrue(response.contains("Invalid command."));
         assertEquals(0, jason.size());
+        assertNull(jason.getLastCommandType());
+    }
+
+    @Test
+    void getResponse_failedCommand_clearsCommandTypeForErrorStyling() {
+        Jason jason = new Jason();
+        jason.addTask(new ToDo("read book"));
+        jason.getResponse("list");
+
+        String response = jason.getResponse("delete 999");
+
+        assertTrue(response.contains("No such index in list."));
+        assertNull(jason.getLastCommandType());
     }
 
     @Test
